@@ -27,9 +27,23 @@ export default function Subscriptions() {
   const expiredCount = subscriptions.filter(s => s.status === 'Expired' || s.status === 'Suspended').length;
   const totalMRR     = subscriptions.filter(s => s.status === 'Active').reduce((sum, s) => sum + s.amount, 0);
 
-  function statusBadge(s) {
-    const m = { Active: 'badge-active', Trial: 'badge-trial', Suspended: 'badge-suspended', Expired: 'badge-expired' };
-    return m[s] || 'badge-inactive';
+  function statusBadgeClass(s) {
+    const map = {
+      Active:    'bg-green-100 text-green-700',
+      Trial:     'bg-blue-100 text-blue-700',
+      Suspended: 'bg-amber-100 text-amber-700',
+      Expired:   'bg-red-100 text-red-700',
+    };
+    return map[s] || 'bg-gray-100 text-gray-500';
+  }
+
+  function planBadgeClass(p) {
+    const map = {
+      Premium:    'bg-violet-100 text-violet-700',
+      Enterprise: 'bg-fuchsia-50 text-fuchsia-700',
+      Basic:      'bg-gray-100 text-gray-700',
+    };
+    return map[p] || 'bg-gray-100 text-gray-700';
   }
 
   return (
@@ -37,8 +51,8 @@ export default function Subscriptions() {
 
       {/* Header */}
       <div className="flex-shrink-0">
-        <h1 className="page-title">Subscriptions</h1>
-        <p className="page-subtitle">Manage school subscription statuses and billing cycles</p>
+        <h1 className="text-[1.375rem] font-bold text-gray-900 leading-snug">Subscriptions</h1>
+        <p className="text-sm text-gray-500 mt-1">Manage school subscription statuses and billing cycles</p>
       </div>
 
       {/* Summary */}
@@ -63,56 +77,71 @@ export default function Subscriptions() {
 
       {/* Filters */}
       <div className="flex flex-col sm:flex-row gap-3 flex-shrink-0">
-        <div className="sa-search-wrapper flex-1">
-          <span className="sa-search-icon"><SearchIcon /></span>
-          <input type="text" placeholder="Search schools..." className="sa-search" value={search}
-            onChange={(e) => { setSearch(e.target.value); setPage(1); }} />
+        <div className="relative flex items-center flex-1">
+          <span className="absolute left-2.5 text-gray-400 pointer-events-none"><SearchIcon /></span>
+          <input
+            type="text"
+            placeholder="Search schools..."
+            className="w-full pl-9 pr-3.5 py-2 text-sm border border-gray-200 rounded-md outline-none bg-white text-gray-700 transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500/15"
+            value={search}
+            onChange={(e) => { setSearch(e.target.value); setPage(1); }}
+          />
         </div>
         <FilterDropdown value={statusFilter} onChange={(v) => { setStatus(v); setPage(1); }} options={STATUS_OPTIONS} />
         <FilterDropdown value={planFilter}   onChange={(v) => { setPlan(v);   setPage(1); }} options={PLAN_OPTIONS} />
       </div>
 
       {/* Table card */}
-      <div className="sa-table-wrapper flex-1 min-h-0">
-        <div className="sa-table-scroll">
-          <table className="sa-table">
-            <thead>
+      <div className="w-full rounded-lg border border-gray-200 bg-white flex flex-col overflow-hidden flex-1 min-h-0">
+        <div className="flex-1 overflow-y-auto overflow-x-auto min-h-0">
+          <table className="w-full border-collapse text-sm align-top">
+            <thead className="bg-gray-50">
               <tr>
-                <th>School</th>
-                <th>Plan</th>
-                <th className="hidden sm:table-cell">Amount</th>
-                <th>Status</th>
-                <th className="hidden md:table-cell">Billing</th>
-                <th className="hidden lg:table-cell">Start Date</th>
-                <th className="hidden lg:table-cell">End Date</th>
-                <th className="hidden xl:table-cell">Next Billing</th>
-                <th>Action</th>
+                {['School', 'Plan', 'Amount', 'Status', 'Billing', 'Start Date', 'End Date', 'Next Billing', 'Action'].map((h, i) => (
+                  <th
+                    key={h}
+                    className={`px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide border-b border-gray-200 whitespace-nowrap sticky top-0 z-[1] bg-gray-50 ${
+                      i === 2 ? 'hidden sm:table-cell' :
+                      i === 4 ? 'hidden md:table-cell' :
+                      (i === 5 || i === 6) ? 'hidden lg:table-cell' :
+                      i === 7 ? 'hidden xl:table-cell' : ''
+                    }`}
+                  >{h}</th>
+                ))}
               </tr>
             </thead>
             <tbody>
               {paginated.length === 0 ? (
                 <tr><td colSpan={9} className="text-center py-16 text-gray-400 text-sm">No subscriptions found</td></tr>
               ) : paginated.map((s) => (
-                <tr key={s.id}>
-                  <td className="font-medium text-gray-900 text-sm">{s.school}</td>
-                  <td><span className={`badge ${s.plan === 'Premium' ? 'badge-premium' : s.plan === 'Enterprise' ? 'badge-enterprise' : 'badge-basic'}`}>{s.plan}</span></td>
-                  <td className="hidden sm:table-cell font-semibold text-gray-800">${s.amount}/mo</td>
-                  <td><span className={`badge ${statusBadge(s.status)}`}>{s.status}</span></td>
-                  <td className="hidden md:table-cell text-sm text-gray-600">{s.billingCycle}</td>
-                  <td className="hidden lg:table-cell text-xs text-gray-500">{s.startDate}</td>
-                  <td className="hidden lg:table-cell text-xs text-gray-500">{s.endDate}</td>
-                  <td className="hidden xl:table-cell text-xs text-gray-500">{s.nextBilling}</td>
-                  <td>
-                    <div className="flex gap-1">
-                      <button className="btn-icon"><EyeIcon /></button>
-                    </div>
+                <tr key={s.id} className="border-b border-gray-100 last:border-b-0 hover:bg-gray-50 transition-colors">
+                  <td className="px-4 py-3.5 font-medium text-gray-900 text-sm align-middle">{s.school}</td>
+                  <td className="px-4 py-3.5 align-middle">
+                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium whitespace-nowrap ${planBadgeClass(s.plan)}`}>
+                      {s.plan}
+                    </span>
+                  </td>
+                  <td className="px-4 py-3.5 font-semibold text-gray-800 align-middle hidden sm:table-cell">${s.amount}/mo</td>
+                  <td className="px-4 py-3.5 align-middle">
+                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium whitespace-nowrap ${statusBadgeClass(s.status)}`}>
+                      {s.status}
+                    </span>
+                  </td>
+                  <td className="px-4 py-3.5 text-sm text-gray-600 align-middle hidden md:table-cell">{s.billingCycle}</td>
+                  <td className="px-4 py-3.5 text-xs text-gray-500 align-middle hidden lg:table-cell">{s.startDate}</td>
+                  <td className="px-4 py-3.5 text-xs text-gray-500 align-middle hidden lg:table-cell">{s.endDate}</td>
+                  <td className="px-4 py-3.5 text-xs text-gray-500 align-middle hidden xl:table-cell">{s.nextBilling}</td>
+                  <td className="px-4 py-3.5 align-middle">
+                    <button className="inline-flex items-center justify-center w-8 h-8 rounded-md border border-gray-200 bg-white cursor-pointer text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-900">
+                      <EyeIcon />
+                    </button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-        <div className="sa-table-footer">
+        <div className="flex-shrink-0 border-t border-gray-200 bg-white px-4">
           <Pagination page={page} totalPages={totalPages} perPage={perPage} total={filtered.length}
             onPageChange={setPage} onPerPageChange={(n) => { setPerPage(n); setPage(1); }} />
         </div>

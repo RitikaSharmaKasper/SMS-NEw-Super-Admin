@@ -14,7 +14,7 @@
  *   perPageOptions   {number[]} - optional, defaults to [10, 20, 50, 100]
  */
 
-const DEFAULT_PER_PAGE_OPTIONS = [10, 20, 50, 100];
+const DEFAULT_PER_PAGE_OPTIONS = [5, 10, 20, 50];
 
 export default function Pagination({
   page = 1,
@@ -30,7 +30,7 @@ export default function Pagination({
 
   // Build smart page list with ellipsis
   function buildPages() {
-    if (safeTotalPages <= 7) {
+    if (safeTotalPages <= 2) {
       return Array.from({ length: safeTotalPages }, (_, i) => i + 1);
     }
     const pages = [1];
@@ -74,51 +74,60 @@ export default function Pagination({
       <div className="flex items-center gap-1.5 flex-shrink-0">
 
         {/* ‹ Previous */}
-        <button
-          className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-gray-700 bg-white border border-gray-200 rounded-md cursor-pointer hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition-colors flex-shrink-0"
-          onClick={() => onPageChange(Math.max(1, safePage - 1))}
-          disabled={safePage === 1}
-        >
-          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" className="w-3 h-3">
-            <path d="M10 3L5 8l5 5" />
-          </svg>
-          <span className="hidden sm:inline">Previous</span>
-        </button>
+      
 
         {/* Page number buttons */}
-        <div className="flex items-center gap-1">
-          {pages.map((p, i) =>
-            p === '...' ? (
-              <span key={`e-${i}`} className="inline-flex items-center justify-center min-w-6 h-8 text-xs text-gray-400 select-none">…</span>
-            ) : (
-              <button
-                key={p}
-                onClick={() => onPageChange(p)}
-                className={`inline-flex items-center justify-center min-w-8 h-8 px-1.5 rounded-md border border-gray-200 text-xs text-gray-700 bg-white cursor-pointer hover:bg-gray-100 transition-colors flex-shrink-0 ${safePage === p ? 'bg-blue-600 text-white border-blue-600 font-semibold hover:bg-blue-600 hover:text-white' : ''}`}
-              >
-                {p}
-              </button>
-            )
-          )}
-        </div>
-
+      {/* Page number buttons */}
+<div className="flex items-center gap-2">
+  {pages.map((p, i) =>
+    p === '...' ? (
+      <span
+        key={`e-${i}`}
+        className="inline-flex items-center justify-center min-w-8 h-8 text-[12px] text-gray-400 select-none"
+      >
+        …
+      </span>
+    ) : (
+      <button
+        key={p}
+        onClick={() => onPageChange(p)}
+        className={`inline-flex items-center justify-center min-w-8 h-8 px-2 rounded-[6px] text-[12px] font-medium font-[500] cursor-pointer transition-colors flex-shrink-0 ${
+          safePage === p
+            ? 'bg-[#0DA2E7] text-white hover:bg-[#0DA2E7]'
+            : 'bg-[#F3F4F6] text-[#6B7280] hover:bg-gray-200'
+        }`}
+      >
+        {p}
+      </button>
+    )
+  )}
+</div>
         {/* Next › */}
-        <button
-          className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-gray-700 bg-white border border-gray-200 rounded-md cursor-pointer hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition-colors flex-shrink-0"
-          onClick={() => onPageChange(Math.min(safeTotalPages, safePage + 1))}
-          disabled={safePage === safeTotalPages}
-        >
-          <span className="hidden sm:inline">Next</span>
-          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" className="w-3 h-3">
-            <path d="M6 3l5 5-5 5" />
-          </svg>
-        </button>
+     
       </div>
 
       {/* Far Right: X–Y of Z */}
-      <div className="text-xs text-gray-500 whitespace-nowrap flex-shrink-0 hidden sm:block">
-        {from}–{to} of {total}
-      </div>
+<button
+  className="inline-flex items-center px-2.5 py-1.5 text-xs font-medium text-gray-700 bg-white border border-gray-200 rounded-md cursor-pointer hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition-colors flex-shrink-0"
+  onClick={() => onPageChange(Math.max(1, safePage - 1))}
+  disabled={safePage === 1}
+>
+  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" className="w-3 h-3">
+    <path d="M10 3L5 8l5 5" />
+  </svg>
+  <span className="hidden sm:inline">Previous</span>
+</button>
+
+<button
+  className="inline-flex items-center px-2.5 py-1.5 text-xs font-medium text-gray-700 bg-white border border-gray-200 rounded-md cursor-pointer hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition-colors flex-shrink-0"
+  onClick={() => onPageChange(Math.min(safeTotalPages, safePage + 1))}
+  disabled={safePage === safeTotalPages}
+>
+  <span className="hidden sm:inline">Next</span>
+  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" className="w-3 h-3">
+    <path d="M6 3l5 5-5 5" />
+  </svg>
+</button>
     </div>
   );
 }

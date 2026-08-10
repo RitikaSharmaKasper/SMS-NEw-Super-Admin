@@ -2,22 +2,25 @@ import React, { useState } from 'react';
 import { MdSearch } from 'react-icons/md';
 
 const rows = [
-  { school: 'Springfield Academy',  time: '9:00 AM',  course: 'Mathematics', status: 'Active'   },
-  { school: 'Sundale High School',  time: '10:30 AM', course: 'Science',     status: 'Active'   },
-  { school: 'Riverside Institute',  time: '11:00 AM', course: 'English',     status: 'Inactive' },
-  { school: 'Lakeside Primary',     time: '1:00 PM',  course: 'History',     status: 'Pending'  },
-  { school: 'Crestwood School',     time: '2:30 PM',  course: 'Geography',   status: 'Active'   },
-  { school: 'Maplewood Academy',    time: '3:00 PM',  course: 'Physics',     status: 'Trial'    },
-  { school: 'Brookfield College',   time: '4:15 PM',  course: 'Chemistry',   status: 'Active'   },
-  { school: 'Pinecrest Institution',time: '5:00 PM',  course: 'Biology',     status: 'Inactive' },
+  { school: 'Springfield Academy',   plan:"Premium",  students: '1250', status: 'Active'   },
+  { school: 'Sundale High School',   plan:"Basic",  students: '1800', status: 'Active'   },
+  { school: 'Riverside Institute',   plan:"Standard",  students: '1600', status: 'Suspended' },
+  { school: 'Lakeside Primary',      plan:"Basic",  students: '1400', status: 'Suspended'  },
+  { school: 'Crestwood School',      plan:"Premium",  students: '1500', status: 'Active'   },
+  { school: 'Maplewood Academy',     plan:"Standard",  students: '1900', status: 'Trial'    },
+  { school: 'Brookfield College',    plan:"Basic",  students: '1700',   status: 'Active'   },
+  { school: 'Pinecrest Institution', plan:"Standard",  students: '1500',     status: 'Suspended' },
 ];
 
-const statusClass = {
-  Active:   'badge badge-active',
-  Inactive: 'badge badge-inactive',
-  Pending:  'badge badge-pending',
-  Trial:    'badge badge-trial',
-};
+function statusBadgeClass(s) {
+  const map = {
+    Active:   'bg-[#E8F9EE] text-[#21C45D]',
+    Suspended: 'bg-[#FDF5E6] text-[#F69F11]',
+
+    Trial:    'bg-[#E6F5FC] text-[#59A2E7]',
+  };
+  return map[s] || 'bg-gray-100 text-gray-500';
+}
 
 export default function GrowthTable() {
   const [search, setSearch] = useState('');
@@ -26,56 +29,57 @@ export default function GrowthTable() {
     r.course.toLowerCase().includes(search.toLowerCase())
   );
 
+  // 2. Slice the data to only take the first 5 items
+  const visibleRows = rows.slice(0, 5);
   return (
-    <div className="card h-full flex flex-col">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+    
+    <div className="card h-[410px] flex flex-col ">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
         <div>
           <h2 className="section-title">Student Growth Across Platform</h2>
-          <p className="section-sub mt-0.5">School-level enrollment activity</p>
+    
         </div>
         {/* Search */}
-        <div className="flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-lg px-2.5 py-1.5">
-          <MdSearch className="text-gray-400" size={14} />
-          <input
-            type="text"
-            placeholder="Search school..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="text-xs text-gray-700 bg-transparent outline-none w-32 placeholder:text-gray-400"
-          />
-        </div>
+       
       </div>
 
-      <div className="overflow-x-auto -mx-1.5 sm:mx-0 flex-1">
-        <table className="w-full min-w-[480px] text-xs">
-          <thead>
-            <tr className="border-b border-gray-100">
-              <th className="text-left py-2.5 px-3 text-gray-500 font-semibold">School Name</th>
-              <th className="text-left py-2.5 px-3 text-gray-500 font-semibold">Time</th>
-              <th className="text-left py-2.5 px-3 text-gray-500 font-semibold">Course</th>
-              <th className="text-left py-2.5 px-3 text-gray-500 font-semibold">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filtered.map((row, i) => (
-              <tr
-                key={i}
-                className="border-b border-gray-50 hover:bg-indigo-50/40 table-row-hover"
-              >
-                <td className="py-2.5 px-3 font-medium text-gray-800">{row.school}</td>
-                <td className="py-2.5 px-3 text-gray-500">{row.time}</td>
-                <td className="py-2.5 px-3 text-gray-600">{row.course}</td>
-                <td className="py-2.5 px-3">
-                  <span className={statusClass[row.status] || 'badge'}>{row.status}</span>
-                </td>
-              </tr>
-            ))}
-            {filtered.length === 0 && (
-              <tr><td colSpan={4} className="py-6 text-center text-gray-400">No results found</td></tr>
-            )}
-          </tbody>
-        </table>
-      </div>
+    {/* Border and rounded corners moved to this wrapper div */}
+ <div className="overflow-x-auto -mx-1.5 sm:mx-0 flex-1 border border-[#E5E7EB] rounded-xl bg-white">
+         <div className="max-h-[300px] overflow-y-auto">
+  {/* The table acts purely as a container for rows now */}
+  <table className="w-full min-w-[480px] text-[14px] border-collapse">
+    <thead>
+      <tr className="border-b border-[#E5E7EB] bg-[#F9F9FA] sticky top-0 z-10">
+        <th className="text-left py-3 px-3 text-[#6B7280] text-[14px]  font-[600] font-semibold">School Name</th>
+        <th className="text-left py-3 pl-18 text-[#6B7280] text-[14px] font-[600] font-semibold">Plan</th>
+        <th className="text-left py-3 pl-9 pr-2 text-[#6B7280] text-[14px] font-[600] font-semibold">Students</th>
+        <th className="text-left py-3 pl-10  pr-2 text-[#6B7280] text-[14px] font-[600] font-semibold">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {filtered.map((row, i) => (
+        <tr key={i} className="border-b border-[#F2F3F5]  table-row-hover">
+          <td className="py-3 px-3 font-[600] text-[14px] text-[#0F1729]">{row.school}</td>
+          <td className="py-3 pl-15">
+            <span className={`inline-flex items-center px-3 py-0.5 rounded-full text-[13px] font-semibold font-[600] whitespace-nowrap ${statusBadgeClass(row.plan)}`}>
+              {row.plan}
+            </span>
+          </td>
+          <td className="py-3  pl-12 pr-2 text-[14px] font-[400] font-normal">{row.students}</td>
+          <td className="py-3 pl-9  pr-2">
+            <span className={`inline-flex items-center px-3 py-0.5 rounded-full text-[13px] font-semibold font-[600] whitespace-nowrap ${statusBadgeClass(row.status)}`}>
+              {row.status}
+            </span>
+          </td>
+        </tr>
+      ))}
+      {filtered.length === 0 && (
+        <tr><td colSpan={4} className="py-6 text-center text-gray-400">No results found</td></tr>
+      )}
+    </tbody>
+  </table>
+  </div>
+</div>
     </div>
   );
 }

@@ -20,13 +20,13 @@ const data = [
 ];
 
 const COLORS = data.map((_, i) =>
-  i === data.length - 1 ? '#4f46e5' : '#818cf8'
+  i === data.length - 1 ? '#7C3BED' : '#7C3BED'
 );
 
 const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload?.length) {
     return (
-      <div className="bg-white shadow-lg rounded-lg p-2.5 border border-gray-100 text-xs">
+      <div className="bg-white shadow-lg rounded-lg p-2.5 border border-gray-100 text-[14px]">
         <p className="font-semibold text-gray-700">{label}</p>
         <p className="text-indigo-600 font-medium mt-0.5">{payload[0].value} schools</p>
       </div>
@@ -41,18 +41,23 @@ export default function SchoolEnrollment() {
       <div className="flex items-center justify-between mb-4">
         <div>
           <h2 className="section-title">School Enrollment</h2>
-          <p className="section-sub mt-0.5">Monthly new enrollments</p>
+   
         </div>
-        <select className="text-xs border border-gray-200 rounded-lg px-2 py-1.5 text-gray-600 bg-white outline-none cursor-pointer">
+        <select className="text-[12px] border border-gray-200 rounded-[6px] px-5 py-2 text-[#6B7280] bg-white outline-none cursor-pointer">
           <option>2024</option>
           <option>2023</option>
         </select>
       </div>
-      <ResponsiveContainer width="100%" height={200}>
-        <BarChart data={data} margin={{ top: 4, right: 4, left: -20, bottom: 0 }} barSize={14}>
+      <ResponsiveContainer width="100%" height={300}>
+        <BarChart data={data} margin={{ top: 4, right: 4, left: -20, bottom: 0 }} barSize={25}>
           <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" vertical={false} />
-          <XAxis dataKey="month" tick={{ fontSize: 10, fill: '#9ca3af' }} axisLine={false} tickLine={false} />
-          <YAxis tick={{ fontSize: 10, fill: '#9ca3af' }} axisLine={false} tickLine={false} />
+         <XAxis tick={{ fontSize: 12, fill: '#9C9C9C' }} dataKey="month"         tickLine={{ stroke: '#9C9C9C', strokeWidth: 1, length: 22 }} 
+                              axisLine={{ stroke: '#9C9C9C', strokeWidth: 1 }} 
+                   />
+                            <YAxis tick={{ fontSize: 12, fill: '#9C9C9C' }} 
+                              axisLine={{ stroke: '#9C9C9C', strokeWidth: 1 }}   tickLine={{ stroke: '#9C9C9C', strokeWidth: 1, length: 22}} 
+                            
+                     tickFormatter={(v) => `${v / 1000}k`} />
           <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(99,102,241,0.06)' }} />
           <Bar dataKey="enrolled" name="Enrolled" radius={[4, 4, 0, 0]}>
             {data.map((_, i) => (

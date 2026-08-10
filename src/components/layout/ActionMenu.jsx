@@ -1,20 +1,11 @@
 import { useState, useRef, useEffect } from 'react';
 
 /**
- * ActionMenu - Reusable "..." action dropdown matching Figma design
+ * ActionMenu - Reusable "..." action dropdown
  *
  * Props:
  *   actions  {Array}  - array of { label, icon?, onClick, danger? }
  *   align    {string} - 'left' | 'right' (default 'right')
- *
- * Usage:
- *   <ActionMenu actions={[
- *     { label: 'View',         icon: <EyeIcon />,    onClick: () => {} },
- *     { label: 'Upgrade Plan', icon: <UpgradeIcon />,onClick: () => {} },
- *     { label: 'Renew',        icon: <RenewIcon />,  onClick: () => {} },
- *     { label: 'Suspend',      icon: <SuspendIcon />,onClick: () => {} },
- *     { label: 'Delete',       icon: <TrashIcon />,  onClick: () => {}, danger: true },
- *   ]} />
  */
 export default function ActionMenu({ actions = [], align = 'right' }) {
   const [open, setOpen] = useState(false);
@@ -36,21 +27,29 @@ export default function ActionMenu({ actions = [], align = 'right' }) {
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="btn-icon"
         title="Actions"
+        className="inline-flex items-center justify-center w-8 h-8  bg-white cursor-pointer text-[#0F1729] transition-colors"
       >
         <DotsIcon />
       </button>
 
       {/* Menu panel */}
       {open && (
-        <div className={`am-panel ${align === 'left' ? 'left-0' : 'right-0'}`}>
+        <div
+          className={`absolute top-[calc(100%+2px)] z-50 min-w-[10rem] bg-white border border-gray-200 rounded-lg shadow-[0_8px_24px_rgba(0,0,0,0.10),0_2px_6px_rgba(0,0,0,0.06)] p-1 animate-[fd-fade_0.1s_ease] ${
+            align === 'left' ? 'left-0' : 'right-0'
+          }`}
+        >
           {actions.map((action, i) => (
             <button
               key={i}
               type="button"
               onClick={() => { action.onClick?.(); setOpen(false); }}
-              className={`am-item ${action.danger ? 'am-item-danger' : ''}`}
+              className={`flex items-center gap-2.5 w-full px-2 py-1.5 text-sm rounded-md border-none cursor-pointer text-left whitespace-nowrap transition-colors ${
+                action.danger
+                  ? 'text-red-600 bg-transparent hover:bg-red-50'
+                  : 'text-gray-700 bg-transparent hover:bg-gray-100'
+              }`}
             >
               {action.icon && (
                 <span className="w-4 h-4 flex-shrink-0 flex items-center justify-center">

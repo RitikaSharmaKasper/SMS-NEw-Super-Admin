@@ -145,10 +145,14 @@ trialSchools:248,
 activeSubscriptions: 226,
 expiringPlans:18,
   activeModules: 9,
-  monthlyGrowth: "+12%",
+  monthlyGrowth: "12%",
   revenueGrowth: "+8.4%",
-  schoolGrowth: "+5",
-  studentGrowth: "+2340",
+  schoolGrowth: "5",
+  studentGrowth: "2340",
+  teacherGrowth: "180",
+  trialSchoolsGrowth:"14%",
+  activeSubscriptionsGrowth:"91%",
+  activeSchoolsGrowth:"77%",
 };
 
 // --- DASHBOARD RECENT ACTIVITY ---

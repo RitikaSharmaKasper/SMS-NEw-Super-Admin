@@ -85,18 +85,18 @@ function NavItem({ label, path, image, collapsed, onClick }) {
       title={collapsed ? label : undefined}
       className={({ isActive }) =>
         [
-          'flex items-center gap-3 rounded-[8px] text-[16px] font-semiboldtransition-all duration-150 select-none no-underline',
+            'flex items-center gap-3 rounded-[8px] text-[16px] font-semibold duration-150 select-none no-underline font-Public Sans',
           collapsed ? 'justify-center px-0 py-2.5 mx-1' : 'px-3 py-2.5 mx-2',
           isActive
             ? 'bg-[#0F2C46] text-[#0EA2E6] font-semibold font-[500] text-[16px] '
-            : 'text-white/60 hover:text-white hover:bg-white/8',
+            : 'text-[#FFFFFF] hover:text-white hover:bg-white/8',
         ].join(' ')
       }
     >
          {/* render the SVG image as an icon */}
       <img src={image} alt="" width={16} height={16} className="flex-shrink-0 brightness-0 invert" />
 
-      {!collapsed && <span className="truncate leading-none">{label}</span>}
+      {!collapsed &&   <span className="leading-snug break-words">{label}</span>}
     </NavLink>
   );
 }
@@ -110,7 +110,7 @@ function NavList({ collapsed, onItemClick }) {
 
           {/* Section label */}
           {!collapsed ? (
-            <p className="px-5 pt-4 pb-1.5 text-[12px] font-[500] uppercase tracking-[0.1em] text-[#6B7280] select-none leading-none">
+            <p className="px-5 pt-4 pb-1.5 text-[12px] font-[500] uppercase  text-[#6B7280] select-none truncate leading-none whitespace-nowrap">
               {section.label}
             </p>
           ) : (
@@ -148,16 +148,43 @@ function Logo({ collapsed }) {
 /* ─── User footer ─── */
 function UserFooter({ collapsed }) {
   return (
-    <div className={`flex items-center border-t border-white/10 flex-shrink-0 py-3 ${collapsed ? 'justify-center px-2' : 'gap-3 px-4'}`}>
-      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#a78bfa] to-[#6366f1] flex items-center justify-center text-white font-bold text-[11px] flex-shrink-0 shadow-md">
+    <div className={`flex items-center border-t border-white/10 flex-shrink-0 py-3 ${collapsed ? 'justify-center px-2' : 'gap-2 px-4'}`}>
+      <div className="w-8 h-8 rounded-[18px] bg-[#0DA2E7] flex items-center justify-center text-[#FFFFFF] font-bold text-[14px] font-[600]  flex-shrink-0 shadow-md">
         SA
       </div>
       {!collapsed && (
-        <div className="min-w-0 flex-1">
-          <p className="text-white text-[13px] font-semibold truncate leading-tight">Super Admin</p>
-          <p className="text-white/40 text-[11px] truncate leading-tight mt-0.5">admin@mun-c.com</p>
+        <div className="min-w-0 flex-1 w-full flex items-center justify-between ml-3">
+          
+          <div className="min-w-0">
+            <p className="text-white text-[16px] font-[700] font-semibold truncate leading-tight">Super Admin</p>
+            <p className="text-white/40 text-[12px] font-[400] truncate leading-tight mt-0.5">admin@mun-c.com</p>
+          </div>
+
+          {/* Add your icon here */}
+          <button className="text-white/40 hover:text-white transition-colors flex-shrink-0 cursor-pointer">
+            <svg 
+              width="20" 
+              height="20" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              stroke="currentColor" 
+              strokeWidth="2" 
+              strokeLinecap="round" 
+              strokeLinejoin="round"
+            >
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+              <polyline points="16 17 21 12 16 7" />
+              <line x1="21" y1="12" x2="9" y2="12" />
+            </svg>
+          </button>
+
         </div>
+        
       )}
+
+
+
+
     </div>
   );
 }
@@ -168,7 +195,7 @@ export default function Sidebar() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const sidebarBase = 'flex flex-col bg-[#0F1729] ';
-  const desktopWidth = collapsed ? 'w-[68px]' : 'w-[245px] xl:w-[245px]';
+  const desktopWidth = collapsed ? 'w-[70px]' : 'w-[270px] xl:w-[270px]';
 
   return (
     <>
@@ -215,7 +242,7 @@ export default function Sidebar() {
         <NavList collapsed={collapsed} />
 
         {/* Collapse toggle */}
-        <div className="flex items-center justify-end px-3 py-2.5 border-t border-white/10 flex-shrink-0">
+        <div className="flex items-center justify-end px-2 py-2  flex-shrink-0">
           <button
             onClick={() => setCollapsed(v => !v)}
             className="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white/60 hover:text-white transition-all"

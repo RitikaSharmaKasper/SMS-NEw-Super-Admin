@@ -12,14 +12,14 @@ export default function Topbar({ mobileOpen, setMobileOpen }) {
         </button>
 
         {/* Global Search */}
-        <div className="sa-search-wrapper flex-1 max-w-xs sm:max-w-sm md:max-w-md">
-          <span className="sa-search-icon">
+        <div className="relative flex items-center flex-1 max-w-xs sm:max-w-sm md:max-w-md">
+          <span className="absolute left-2.5 text-gray-400 pointer-events-none">
             <SearchIcon />
           </span>
           <input
             type="text"
             placeholder="Search schools, tickets, users..."
-            className="sa-search"
+            className="w-full pl-9 pr-3.5 py-2 text-sm border border-gray-200 rounded-md outline-none bg-white text-gray-700 transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500/15"
           />
         </div>
       </div>
@@ -27,7 +27,7 @@ export default function Topbar({ mobileOpen, setMobileOpen }) {
       {/* Right: Actions */}
       <div className="flex items-center gap-2 flex-shrink-0">
         {/* Notification bell */}
-        <button className="btn-icon relative">
+        <button className="relative inline-flex items-center justify-center w-8 h-8 rounded-md border border-gray-200 bg-white cursor-pointer text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-900">
           <BellIcon />
           <span className="absolute top-0.5 right-0.5 w-2 h-2 bg-red-500 rounded-full border border-white"></span>
         </button>

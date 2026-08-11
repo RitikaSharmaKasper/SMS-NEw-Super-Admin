@@ -31,7 +31,7 @@ const CustomTooltip = ({ active, payload }) => {
 const renderLegend = (props) => {
   const { payload } = props;
   return (
-    <ul className="flex justify-center gap-6 mt-2 text-[15px] font-medium">
+    <ul className="flex justify-center gap-6 mt-1 text-[15px] font-medium">
       {payload.map((entry, i) => (
         <li key={i} className="flex items-center gap-2">
           {/* Colored Square */}

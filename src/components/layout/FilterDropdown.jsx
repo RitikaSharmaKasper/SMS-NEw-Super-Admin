@@ -32,7 +32,7 @@ export default function FilterDropdown({ value, onChange, options = [], classNam
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="inline-flex items-center gap-1.5 px-3 py-2 min-w-[9rem] bg-[#F3F4F6] border border-[#DDDDDD] rounded-[8px] text-sm text-gray-700 cursor-pointer whitespace-nowrap select-none transition-colors "
+        className="inline-flex items-center gap-1.5 px-3 py-2.5 min-w-[9rem] bg-[#F3F4F6] border border-[#DDDDDD] rounded-[8px] text-[14px] text-[#696969] cursor-pointer whitespace-nowrap select-none transition-colors "
       >
         <span className="truncate">{value}</span>
         <ChevronIcon open={open} />
@@ -40,7 +40,7 @@ export default function FilterDropdown({ value, onChange, options = [], classNam
 
       {/* Dropdown panel */}
       {open && (
-        <div className="absolute top-[calc(100%+6px)] left-0 z-50 min-w-full bg-[#F3F4F6] border border-[#DDDDDD] rounded-lg shadow-[0_8px_24px_rgba(0,0,0,0.10),0_2px_6px_rgba(0,0,0,0.06)] p-1 animate-[fd-fade_0.1s_ease]">
+        <div className="absolute top-[calc(100%+6px)] left-0 z-50 min-w-full bg-[#FFFFFF] border border-[#DDDDDD] rounded-[6px]  p-1">
           {options.map((opt) => {
             const isSelected = opt === value;
             return (
@@ -48,10 +48,10 @@ export default function FilterDropdown({ value, onChange, options = [], classNam
                 key={opt}
                 type="button"
                 onClick={() => select(opt)}
-                className={`flex items-center gap-2 w-full px-3 py-2 text-sm rounded-md border-none cursor-pointer text-left transition-colors ${
+                className={`flex items-center gap-9 w-full px-3 py-1 text-[14px] font-[500]  rounded-[4px] border-none cursor-pointer text-left transition-colors ${
                   isSelected
-                    ? 'bg-blue-600 text-white hover:bg-blue-600'
-                    : 'text-gray-700 bg-transparent hover:bg-gray-100'
+                    ? 'bg-[#7C3BED] text-white hover:bg-[#7C3BED]'
+                    : 'text-gray-700 bg-transparent hover:bg-[#F3F4F6]'
                 }`}
               >
                 <span className="truncate flex-1 text-left">{opt}</span>
@@ -72,7 +72,7 @@ function ChevronIcon({ open }) {
       fill="none"
       stroke="currentColor"
       strokeWidth="2"
-      className={`w-3.5 h-3.5 flex-shrink-0 transition-transform duration-150 ${open ? 'rotate-180' : ''}`}
+      className={`w-3.5 h-3.5 flex-shrink-0 transition-transform duration-150 ${open ? '' : ''}`}
     >
       <path d="M3 6l5 5 5-5" />
     </svg>
@@ -81,7 +81,7 @@ function ChevronIcon({ open }) {
 
 function CheckIcon() {
   return (
-    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2.5" className="w-3.5 h-3.5 flex-shrink-0 text-white">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" className="w-3.5 h-3.5 flex-shrink-0 text-white">
       <path d="M3 8l3.5 3.5L13 4" />
     </svg>
   );

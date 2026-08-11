@@ -8,7 +8,10 @@
 @theme {
   --font-sans: 'Public Sans';
 
+  --font-body-m-12-a: 'Public Sans', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
   
+  /* Segoe UI - separate font option */
+  --font-segoe: 'Segoe UI', 'Public Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-family-mono: "Consolas", ui-monospace, monospace;
 
   --spacing-px:  1px;

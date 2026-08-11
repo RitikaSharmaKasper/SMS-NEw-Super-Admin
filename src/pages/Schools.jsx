@@ -15,10 +15,13 @@ export default function Schools() {
   const [perPage, setPerPage] = useState(10);
 
   const filtered = schools.filter((s) => {
+    const q = search.trim().toLowerCase();
     const matchSearch =
-      s.name.toLowerCase().includes(search.toLowerCase()) ||
-      s.schoolId.toLowerCase().includes(search.toLowerCase()) ||
-      s.admin.toLowerCase().includes(search.toLowerCase());
+      !q ||
+      s.name.toLowerCase().includes(q) ||
+      s.schoolId.toLowerCase().includes(q) ||
+      s.admin.toLowerCase().includes(q) ||
+      (s.adminEmail && s.adminEmail.toLowerCase().includes(q));
     const matchStatus = statusFilter === 'All Status' || s.status === statusFilter;
     const matchPlan = planFilter === 'All Plans' || s.plan === planFilter;
     return matchSearch && matchStatus && matchPlan;
@@ -51,10 +54,10 @@ export default function Schools() {
     <div className="flex flex-col h-full gap-4 min-h-0 p-6">
 
       {/* ── Top: header + button ── */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 flex-shrink-0 mb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 flex-shrink-0 mb-2">
         <div>
-          <h1 className="text-[24px] font-[700]  font-bold text-[#000000] leading-snug">Schools</h1>
-          <p className="text-[16px] text-[#6B7280] font-[400]   -mt-[2px] font-Public-Sans">Manage all registered schools on the platform</p>
+          <h1 className="text-[24px] font-[700] font-bold text-[#000000] leading-snug">Schools</h1>
+          <p className="text-[16px] text-[#6B7280] font-[400] -mt-[2px] font-Public-Sans">Manage all registered schools on the platform</p>
         </div>
         <button className="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-md border-none cursor-pointer transition-colors hover:bg-blue-700 whitespace-nowrap self-start sm:self-auto">
           <PlusIcon /> Add School
@@ -62,13 +65,13 @@ export default function Schools() {
       </div>
 
       {/* ── Filters row ── */}
-      <div className="flex flex-col sm:flex-row gap-3 flex-shrink-0 mb-3">
+      <div className="flex flex-col sm:flex-row gap-3 flex-shrink-0 mb-1">
         <div className="relative flex items-center flex-1">
-          <span className="absolute left-2.5 text-[#696969]  pointer-events-none"><SearchIcon /></span>
+          <span className="absolute left-2.5 text-[#696969] pointer-events-none"><SearchIcon /></span>
           <input
             type="text"
             placeholder="Search schools..."
-              className="w-full pl-9 pr-3.5 py-2 text-[16px] border border-[#DDDDDD]  rounded-[8px] outline-none bg-[#F3F4F6] text-[#696969] transition-colors"
+            className="w-full pl-9 pr-3.5 py-2 text-[16px] border border-[#DDDDDD] rounded-[8px] outline-none bg-[#F3F4F6] text-[#696969] transition-colors"
             value={search}
             onChange={(e) => { setSearch(e.target.value); setPage(1); }}
           />
@@ -78,63 +81,60 @@ export default function Schools() {
       </div>
 
       {/* ── Table card ── */}
-      <div className="w-full rounded-[12px] border border-[#E5E7EB] bg-white flex flex-col overflow-hidden flex-1 min-h-0">
+      <div className="w-full rounded-[12px] border border-[#E5E7EB] bg-white flex flex-col overflow-hidden">
 
         {/* Scrollable table body */}
-        <div className="flex-1 overflow-y-auto overflow-x-auto min-h-0">
+        <div className="overflow-x-auto">
           <table className="w-full border-collapse text-sm align-top">
             <thead className="bg-[#FFFFFF]">
               <tr>
-                <th className="px-4 py-2 text-left text-[14px]  font-[600] font-semibold text-[#6B7280]  tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">School Name</th>
-                <th className="px-4 py-2 text-left text-[14px]  font-[600] font-semibold text-[#6B7280]  tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden md:table-cell">School ID</th>
-                <th className="px-4 py-2 text-left text-[14px]  font-[600] font-semibold text-[#6B7280]  tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden lg:table-cell">Admin</th>
-                <th className="px-4 py-2 text-left text-[14px]  font-[600] font-semibold text-[#6B7280]  tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden sm:table-cell">Plan</th>
-                <th className="px-4 py-2 text-left text-[14px]  font-[600] font-semibold text-[#6B7280]  tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden xl:table-cell">Students</th>
-                <th className="px-4 py-2 text-left text-[14px]  font-[600] font-semibold text-[#6B7280]  tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden xl:table-cell">Teachers</th>
-                <th className="px-4 py-2 text-left text-[14px]  font-[600] font-semibold text-[#6B7280]  tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">Status</th>
-                <th className="px-4 py-2 text-left text-[14px]  font-[600] font-semibold text-[#6B7280]  tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden lg:table-cell">Expiry</th>
-                <th className="px-4 py-2 text-left text-[14px]  font-[600] font-semibold text-[#6B7280]  tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">Action</th>
+                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">School Name</th>
+                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden md:table-cell">School ID</th>
+                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden lg:table-cell">Admin</th>
+                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden sm:table-cell">Plan</th>
+                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden xl:table-cell">Students</th>
+                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden xl:table-cell">Teachers</th>
+                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">Status</th>
+                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden lg:table-cell">Expiry</th>
+                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">Action</th>
               </tr>
             </thead>
             <tbody>
               {paginated.length === 0 ? (
                 <tr>
-                  <td colSpan={9} className="text-center py-16 text-gray-400 text-sm">No schools found</td>
+                  <td colSpan={9} className="text-center py-12 text-gray-400 text-sm">No schools found</td>
                 </tr>
               ) : paginated.map((s) => (
-                <tr key={s.id} className="border-b border-[#F2F3F5] last:border-b-0  transition-colors">
-                  <td className="px-4 py-3.5 text-gray-700 align-middle">
+                <tr key={s.id} className="border-b border-[#F2F3F5] last:border-b-0 hover:bg-gray-50/50 transition-colors">
+                  <td className="px-4 py-2.5 text-gray-700 align-middle">
                     <div className="flex items-center gap-2">
-                 
                       <div className="min-w-0">
-                        <p className="font-semibold text-[#0F1729] text-[14px] truncate max-w-[140px]">{s.name}</p>
-                    
+                        <p className="font-semibold text-[#0F1729] text-[14px] truncate max-w-[160px]">{s.name}</p>
                       </div>
                     </div>
                   </td>
-                  <td className="px-5 py-3.5 align-middle hidden md:table-cell text-[14px] font-[400] font-mono  text-[#6B7280]">{s.schoolId}</td>
-
-                  <div className="min-w-0  mt-[10px] ml-[11px] ">
-                        <p className="font-semibold  text-[#0F1729] text-[14px] truncate max-w-[140px]  ">{s.admin}</p>
+                  <td className="px-4 py-2.5 align-middle hidden md:table-cell text-[14px] font-[400] font-mono text-[#6B7280]">{s.schoolId}</td>
+                  <td className="px-4 py-2.5 text-gray-700 align-middle hidden lg:table-cell">
+                    <div className="min-w-0">
+                      <p className="font-semibold text-[#0F1729] text-[14px] truncate max-w-[140px]">{s.admin}</p>
                       <p className="text-[14px] text-[#6B7280] truncate max-w-[140px]">{s.adminEmail}</p>
-                      </div>
-                  {/* <td className="px-4 py-3.5 text-gray-700 align-middle hidden lg:table-cell text-sm">{s.admin}</td> */}
-                  <td className="px-2 py-3.5 text-gray-700 align-middle hidden sm:table-cell">
-                    <span className={`inline-flex items-center px-3.5 py-0.5 rounded-full text-[13px] font-[600] font-semibold whitespace-nowrap ${planBadgeClass(s.plan)}`}>
+                    </div>
+                  </td>
+                  <td className="px-4 py-2.5 text-gray-700 align-middle hidden sm:table-cell">
+                    <span className={`inline-flex items-center px-3 py-0.5 rounded-full text-[13px] font-[600] font-semibold whitespace-nowrap ${planBadgeClass(s.plan)}`}>
                       {s.plan}
                     </span>
                   </td>
-                  <td className="px-5 py-3.5 text-[#0F1729] font-[400]  align-middle hidden xl:table-cell text-[14px]">{s.students?.toLocaleString()}</td>
-                  <td className="px-4 py-3.5 text-[#0F1729] font-[400] align-middle hidden xl:table-cell text-[14px]">{s.teachers}</td>
-                  <td className="px-4 py-3.5 text-gray-700 align-middle">
+                  <td className="px-4 py-2.5 text-[#0F1729] font-[400] align-middle hidden xl:table-cell text-[14px]">{s.students?.toLocaleString()}</td>
+                  <td className="px-4 py-2.5 text-[#0F1729] font-[400] align-middle hidden xl:table-cell text-[14px]">{s.teachers}</td>
+                  <td className="px-4 py-2.5 text-gray-700 align-middle">
                     <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium whitespace-nowrap ${statusBadgeClass(s.status)}`}>
                       {s.status}
                     </span>
                   </td>
-                  <td className="px-4 py-3.5 text-[#6B7280] align-middle hidden lg:table-cell text-[14px] ">{s.expiry}</td>
-                  <td className="px-4 py-3.5 text-gray-700 align-middle">
+                  <td className="px-4 py-2.5 text-[#6B7280] align-middle hidden lg:table-cell text-[14px]">{s.expiry}</td>
+                  <td className="px-4 py-2.5 text-gray-700 align-middle">
                     <div className="flex items-center gap-1">
-                      
                       <ActionMenu
                         actions={[
                           { label: 'View',         icon: <EyeIcon />,     onClick: () => {} },
@@ -152,20 +152,19 @@ export default function Schools() {
             </tbody>
           </table>
         </div>
-
-        {/* Pagination pinned at bottom */}
-        <div className="flex-shrink-0 border-t border-gray-200 bg-white px-4">
-          <Pagination
-            page={page}
-            totalPages={totalPages}
-            perPage={perPage}
-            total={filtered.length}
-            onPageChange={setPage}
-            onPerPageChange={(n) => { setPerPage(n); setPage(1); }}
-          />
-        </div>
       </div>
 
+      {/* Pagination outside table card in blank space */}
+      <div className="flex-shrink-0 px-1 mt-1">
+        <Pagination
+          page={page}
+          totalPages={totalPages}
+          perPage={perPage}
+          total={filtered.length}
+          onPageChange={setPage}
+          onPerPageChange={(n) => { setPerPage(n); setPage(1); }}
+        />
+      </div>
     </div>
   );
 }

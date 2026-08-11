@@ -62,14 +62,14 @@ const NAV_SECTIONS = [
   {
     label: 'Analytics',
     items: [
-      { label: 'Reports & Analytics', path: '/reports',    image: reportsandanalytics  },
+      { label: 'Reports & Analytics', path: '/reportsanalytics',    image: reportsandanalytics  },
       { label: 'Audit Logs',          path: '/audit-logs', image: auditlogs },
     ],
   },
   {
     label: 'System',
     items: [
-      { label: 'System Settings', path: '/system-settings', image:systemsettings },
+      { label: 'System Settings', path: '/systemsettings', image:systemsettings },
       { label: 'Profile',         path: '/profile',          image: profile  },
     ],
   },

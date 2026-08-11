@@ -12,10 +12,12 @@ import Modules               from './pages/Modules';
 import Users                 from './pages/Users';
 import Notifications         from './pages/Notifications';
 import SupportTickets        from './pages/SupportTickets';
-import Reports               from './pages/Reports';
+
 import AuditLogs             from './pages/AuditLogs';
 import SystemSettings        from './pages/SystemSettings';
 import Profile               from './pages/Profile';
+import ReportsAnalytics from './pages/ReportsAnalytics';
+import Maintenance from './pages/Settings/Maintenance';
 
 export default function App() {
   return (
@@ -34,11 +36,13 @@ export default function App() {
           <Route path="/users"                  element={<Users />} />
           <Route path="/notifications"          element={<Notifications />} />
           <Route path="/support-tickets"        element={<SupportTickets />} />
-          <Route path="/reports"                element={<Reports />} />
+        
           <Route path="/audit-logs"             element={<AuditLogs />} />
           <Route path="/system-settings"        element={<SystemSettings />} />
           <Route path="/profile"                element={<Profile />} />
-        </Routes>
+          <Route path="/reportsanalytics"       element={<ReportsAnalytics/>}/>
+             <Route path="/systemsettings"       element={<Maintenance/>}/>
+          </Routes>
       </div>
     </div>
   );

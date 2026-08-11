@@ -16,7 +16,7 @@ export default function ExportSummary() {
   return (
     <div className="card h-[280px] flex flex-col">
       <div className="mb-7">
-        <h2 className="section-title mt-1">Support TicketSummary</h2>
+        <h2 className="section-title mt-1">Support Ticket Summary</h2>
 
       </div>
 

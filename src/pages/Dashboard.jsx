@@ -2,13 +2,14 @@ import React from 'react';
 import StatsCards        from '../components/dashboard/StatsCards';
 import StudentGrowth     from '../components/dashboard/StudentGrowth';
 import MonthlyRevenue    from '../components/dashboard/MonthlyRevenue';
-import SchoolEnrollment  from '../components/dashboard/SchoolEnrollment';
+import SchoolEnrollment  from '../components/dashboard/SchoolGrowthpermonth';
 import SubscriptionPlan  from '../components/dashboard/SubscriptionPlan';
 import GrowthTable       from '../components/dashboard/GrowthTable';
 import ExpiryNews        from '../components/dashboard/ExpiryNews';
 import ExportSummary     from '../components/dashboard/ExportSummary';
 import CountryEnrollment from '../components/dashboard/ExpiringSubmissons';
 import ExpiringSubmissions from '../components/dashboard/ExpiringSubmissons';
+import SchoolGrowthpermonth from '../components/dashboard/SchoolGrowthpermonth';
 
 export default function Dashboard() {
   return (
@@ -24,7 +25,7 @@ export default function Dashboard() {
       {/* Row 2 — Monthly Revenue chart (left 2/3) + School Growth Per Month (right 1/3) */}
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
         <div className=" min-h-0"><MonthlyRevenue /></div>
-        <div className="min-h-0"><SchoolEnrollment /></div>
+        <div className="min-h-0"><SchoolGrowthpermonth /></div>
       </div>
 
       {/* Row 3 — Student Growth chart (left 2/3) + Subscription Plan donut (right 1/3) */}

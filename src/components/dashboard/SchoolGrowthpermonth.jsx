@@ -35,12 +35,12 @@ const CustomTooltip = ({ active, payload, label }) => {
   return null;
 };
 
-export default function SchoolEnrollment() {
+export default function SchoolGrowthpermonth() {
   return (
     <div className="card h-full">
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h2 className="section-title">School Enrollment</h2>
+          <h2 className="section-title">School Growth Per Month</h2>
    
         </div>
         <select className="text-[12px] border border-gray-200 rounded-[6px] px-5 py-2 text-[#6B7280] bg-white outline-none cursor-pointer">

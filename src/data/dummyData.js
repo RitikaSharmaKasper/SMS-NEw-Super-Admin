@@ -33,24 +33,34 @@ export const schools = [
 
 // --- USERS ---
 export const users = [
-  { id: 1, name: "John Carter", email: "john.carter@example.com", plan: "School Admin", school: "Springfield Academy", status: "Active", lastLogin: "2026-05-30", role: "school_admin", avatar: "JC" },
-  { id: 2, name: "Sarah Miller", email: "sarah.miller@example.com", plan: "School Admin", school: "Riverside School", status: "Active", lastLogin: "2026-05-30", role: "school_admin", avatar: "SM" },
-  { id: 3, name: "Admin User", email: "admin.user@example.com", plan: "Super Admin", school: "", status: "Active", lastLogin: "2026-05-30", role: "super_admin", avatar: "AU" },
-  { id: 4, name: "James Brown", email: "james.brown@example.com", plan: "School Admin", school: "Blue Sky Academy", status: "Suspended", lastLogin: "2026-05-30", role: "school_admin", avatar: "JB" },
-  { id: 5, name: "Emma Wilson", email: "emma.wilson@example.com", plan: "School Admin", school: "Oakwood International", status: "Active", lastLogin: "2026-05-30", role: "school_admin", avatar: "EW" },
-  { id: 6, name: "Michael Scott", email: "michael.scott@example.com", plan: "School Admin", school: "DW Public School", status: "Active", lastLogin: "2026-04-12", role: "school_admin", avatar: "MS" },
-  { id: 7, name: "Priya Sharma", email: "priya.sharma@example.com", plan: "School Admin", school: "Cedar Valley Academy", status: "Active", lastLogin: "2026-05-01", role: "school_admin", avatar: "PS" },
-  { id: 8, name: "Tom Hardy", email: "tom.hardy@example.com", plan: "School Admin", school: "Maple Heights School", status: "Inactive", lastLogin: "2026-02-20", role: "school_admin", avatar: "TH" },
+  { id: 1, name: "John Carter", email: "john.carter@example.com", role: "School Admin", school: "Springfield Academy", status: "Active", lastLogin: "2026-05-30", avatar: "JC" },
+  { id: 2, name: "Sarah Miller", email: "sarah.miller@example.com", role: "School Admin", school: "Riverside School", status: "Active", lastLogin: "2026-05-30", avatar: "SM" },
+  { id: 3, name: "Admin User", email: "admin.user@example.com", role: "Super Admin", school: "Platform HQ", status: "Active", lastLogin: "2026-05-30", avatar: "AU" },
+  { id: 4, name: "James Brown", email: "james.brown@example.com", role: "School Admin", school: "Blue Sky Academy", status: "Suspended", lastLogin: "2026-05-30", avatar: "JB" },
+  { id: 5, name: "Emma Wilson", email: "emma.wilson@example.com", role: "School Admin", school: "Oakwood International", status: "Active", lastLogin: "2026-05-30", avatar: "EW" },
+  { id: 6, name: "Michael Scott", email: "michael.scott@example.com", role: "School Admin", school: "DW Public School", status: "Active", lastLogin: "2026-04-12", avatar: "MS" },
+  { id: 7, name: "Priya Sharma", email: "priya.sharma@example.com", role: "School Admin", school: "Cedar Valley Academy", status: "Active", lastLogin: "2026-05-01", avatar: "PS" },
+  { id: 8, name: "Tom Hardy", email: "tom.hardy@example.com", role: "School Admin", school: "Maple Heights School", status: "Inactive", lastLogin: "2026-02-20", avatar: "TH" },
+  { id: 9, name: "Linda Chen", email: "linda.chen@example.com", role: "School Admin", school: "Greenfield High School", status: "Active", lastLogin: "2026-05-28", avatar: "LC" },
+  { id: 10, name: "Robert Lee", email: "robert.lee@example.com", role: "School Admin", school: "Oakwood International", status: "Active", lastLogin: "2026-05-29", avatar: "RL" },
+  { id: 11, name: "Sarah Miles", email: "sarah.miles@example.com", role: "School Admin", school: "Blue Sky Academy", status: "Active", lastLogin: "2026-05-25", avatar: "SM" },
+  { id: 12, name: "Mark Johnson", email: "mark.johnson@example.com", role: "School Admin", school: "Sunridge Academy", status: "Active", lastLogin: "2026-05-18", avatar: "MJ" },
 ];
 
 // --- REGISTRATION PROPOSALS ---
 export const registrationProposals = [
-  { id: 1, schoolName: "Sunflower Academy", contactName: "Alice Johnson", email: "alice@sunflower.edu", phone: "+1-555-0101", city: "Austin", state: "Texas", students: 850, plan: "Premium", submittedAt: "2026-05-28", status: "Pending" },
-  { id: 2, schoolName: "Green Valley School", contactName: "Bob Martinez", email: "bob@greenvalley.edu", phone: "+1-555-0102", city: "Denver", state: "Colorado", students: 1200, plan: "Basic", submittedAt: "2026-05-27", status: "Pending" },
-  { id: 3, schoolName: "North Star Academy", contactName: "Clara White", email: "clara@northstar.edu", phone: "+1-555-0103", city: "Seattle", state: "Washington", students: 2000, plan: "Enterprise", submittedAt: "2026-05-26", status: "Approved" },
-  { id: 4, schoolName: "Heritage School", contactName: "David Kim", email: "david@heritage.edu", phone: "+1-555-0104", city: "Atlanta", state: "Georgia", students: 650, plan: "Basic", submittedAt: "2026-05-25", status: "Rejected" },
-  { id: 5, schoolName: "Future Leaders Academy", contactName: "Eva Chen", email: "eva@futureleaders.edu", phone: "+1-555-0105", city: "Miami", state: "Florida", students: 1500, plan: "Premium", submittedAt: "2026-05-24", status: "Pending" },
-  { id: 6, schoolName: "Valley Bridge School", contactName: "Frank Turner", email: "frank@valleybridge.edu", phone: "+1-555-0106", city: "Chicago", state: "Illinois", students: 900, plan: "Premium", submittedAt: "2026-05-23", status: "Approved" },
+  { id: 1, reqId: "REQ-001", schoolName: "Springfield Academy", adminName: "John Carter", adminEmail: "john@springfield.edu", plan: "Premium", date: "2026-03-06", status: "Pending", expiry: "2025-12-15" },
+  { id: 2, reqId: "REQ-002", schoolName: "Riverside School", adminName: "John Carter", adminEmail: "john@springfield.edu", plan: "Premium", date: "2026-03-06", status: "Pending", expiry: "2025-12-15" },
+  { id: 3, reqId: "REQ-003", schoolName: "Maple Heights School", adminName: "John Carter", adminEmail: "john@springfield.edu", plan: "Premium", date: "2026-03-06", status: "Approved", expiry: "2025-12-15" },
+  { id: 4, reqId: "REQ-004", schoolName: "DW Public School", adminName: "John Carter", adminEmail: "john@springfield.edu", plan: "Premium", date: "2026-03-06", status: "Rejected", expiry: "2025-12-15" },
+  { id: 5, reqId: "REQ-005", schoolName: "Oak Ridge High School", adminName: "John Carter", adminEmail: "john@springfield.edu", plan: "Premium", date: "2026-03-06", status: "Pending", expiry: "2025-12-15" },
+  { id: 6, reqId: "REQ-006", schoolName: "Sunflower Academy", adminName: "Alice Johnson", adminEmail: "alice@sunflower.edu", plan: "Basic", date: "2026-04-10", status: "Pending", expiry: "2026-04-10" },
+  { id: 7, reqId: "REQ-007", schoolName: "Green Valley School", adminName: "Bob Martinez", adminEmail: "bob@greenvalley.edu", plan: "Enterprise", date: "2026-04-12", status: "Approved", expiry: "2026-04-12" },
+  { id: 8, reqId: "REQ-008", schoolName: "North Star Academy", adminName: "Clara White", adminEmail: "clara@northstar.edu", plan: "Premium", date: "2026-04-15", status: "Approved", expiry: "2026-04-15" },
+  { id: 9, reqId: "REQ-009", schoolName: "Future Leaders", adminName: "Eva Chen", adminEmail: "eva@futureleaders.edu", plan: "Basic", date: "2026-04-18", status: "Rejected", expiry: "2026-04-18" },
+  { id: 10, reqId: "REQ-010", schoolName: "Valley Bridge School", adminName: "Frank Turner", adminEmail: "frank@valleybridge.edu", plan: "Premium", date: "2026-04-20", status: "Pending", expiry: "2026-04-20" },
+  { id: 11, reqId: "REQ-011", schoolName: "Lakeside Prep", adminName: "Tom Rivera", adminEmail: "tom@lakeside.edu", plan: "Enterprise", date: "2026-04-22", status: "Approved", expiry: "2026-04-22" },
+  { id: 12, reqId: "REQ-012", schoolName: "Hillcrest Academy", adminName: "Amy Wong", adminEmail: "amy@hillcrest.edu", plan: "Premium", date: "2026-04-25", status: "Pending", expiry: "2026-04-25" },
 ];
 
 // --- PLANS ---
@@ -63,39 +73,50 @@ export const plans = [
 
 // --- SUBSCRIPTIONS ---
 export const subscriptions = [
-  { id: 1, school: "Springfield Academy", plan: "Premium", amount: 199, status: "Active", startDate: "2025-01-01", endDate: "2026-12-31", billingCycle: "Monthly", nextBilling: "2026-06-01" },
-  { id: 2, school: "Riverside School", plan: "Premium", amount: 199, status: "Active", startDate: "2025-02-01", endDate: "2025-12-31", billingCycle: "Monthly", nextBilling: "2026-06-01" },
-  { id: 3, school: "Maple Heights School", plan: "Premium", amount: 199, status: "Trial", startDate: "2026-05-01", endDate: "2026-06-01", billingCycle: "Trial", nextBilling: "2026-06-01" },
-  { id: 4, school: "Blue Sky Academy", plan: "Basic", amount: 99, status: "Active", startDate: "2025-06-01", endDate: "2026-06-30", billingCycle: "Monthly", nextBilling: "2026-07-01" },
-  { id: 5, school: "Oakwood International", plan: "Enterprise", amount: 499, status: "Active", startDate: "2024-01-01", endDate: "2027-01-01", billingCycle: "Annual", nextBilling: "2027-01-01" },
-  { id: 6, school: "Oak Ridge High School", plan: "Premium", amount: 199, status: "Suspended", startDate: "2024-01-01", endDate: "2024-12-31", billingCycle: "Monthly", nextBilling: "-" },
-  { id: 7, school: "Pine Grove Middle School", plan: "Premium", amount: 199, status: "Expired", startDate: "2024-01-01", endDate: "2024-12-13", billingCycle: "Monthly", nextBilling: "-" },
+  { id: 1, school: "Springfield Academy", plan: "Premium", amount: 199, status: "Active", startDate: "2025-01-01", endDate: "2026-12-31", student:"1250",teacher:"50" },
+  { id: 2, school: "Riverside School", plan: "Premium", amount: 199, status: "Active", startDate: "2025-02-01", endDate: "2025-12-31", student:"1250", teacher:"50" },
+  { id: 3, school: "Maple Heights School", plan: "Premium", amount: 199, status: "Trial", startDate: "2026-05-01", endDate: "2026-06-01",student:"1250", teacher:"50" },
+  { id: 4, school: "Blue Sky Academy", plan: "Basic", amount: 99, status: "Active", startDate: "2025-06-01", endDate: "2026-06-30", student:"1250",teacher:"50"},
+  { id: 5, school: "Oakwood International", plan: "Enterprise", amount: 499, status: "Active", startDate: "2024-01-01", endDate: "2027-01-01",student:"1250",teacher:"50"},
+  { id: 6, school: "Oak Ridge High School", plan: "Premium", amount: 199, status: "Suspended", startDate: "2024-01-01", endDate: "2024-12-31",student:"1250", teacher:"50" },
+  { id: 7, school: "Pine Grove Middle School", plan: "Premium", amount: 199, status: "Expired", startDate: "2024-01-01", endDate: "2024-12-13", student:"1250",teacher:"50"},
+  { id: 8, school: "Cedar Valley Academy", plan: "Premium", amount: 199, status: "Active", startDate: "2025-03-01", endDate: "2026-03-01",student:"1250", teacher:"50"},
+  { id: 9, school: "DW Public School", plan: "Premium", amount: 199, status: "Active", startDate: "2025-04-01", endDate: "2026-04-01",student:"1250", teacher:"50"},
+  { id: 10, school: "Greenfield High School", plan: "Premium", amount: 199, status: "Active", startDate: "2025-05-01", endDate: "2026-05-01",student:"1250", teacher:"50" },
+  { id: 11, school: "Sunridge Academy", plan: "Basic", amount: 99, status: "Active", startDate: "2025-06-01", endDate: "2026-06-01", student:"1250",teacher:"50" },
+  { id: 12, school: "Westbrook Elementary", plan: "Basic", amount: 99, status: "Trial", startDate: "2026-05-15", endDate: "2026-06-15", student:"1250",teacher:"50"},
 ];
 
 // --- PAYMENTS ---
 export const payments = [
-  { id: 1, txnId: "TXN-20260501-001", school: "Springfield Academy", plan: "Premium", amount: 199, method: "Credit Card", status: "Paid", date: "2026-05-01", invoice: "INV-001" },
-  { id: 2, txnId: "TXN-20260501-002", school: "Riverside School", plan: "Premium", amount: 199, method: "Bank Transfer", status: "Paid", date: "2026-05-01", invoice: "INV-002" },
-  { id: 3, txnId: "TXN-20260501-003", school: "Blue Sky Academy", plan: "Basic", amount: 99, method: "Credit Card", status: "Paid", date: "2026-05-01", invoice: "INV-003" },
-  { id: 4, txnId: "TXN-20260502-004", school: "Oakwood International", plan: "Enterprise", amount: 499, method: "Bank Transfer", status: "Paid", date: "2026-05-02", invoice: "INV-004" },
-  { id: 5, txnId: "TXN-20260503-005", school: "Cedar Valley Academy", plan: "Premium", amount: 199, method: "Credit Card", status: "Overdue", date: "2026-05-03", invoice: "INV-005" },
-  { id: 6, txnId: "TXN-20260504-006", school: "DW Public School", plan: "Premium", amount: 199, method: "Credit Card", status: "Paid", date: "2026-05-04", invoice: "INV-006" },
-  { id: 7, txnId: "TXN-20260505-007", school: "Maple Heights School", plan: "Premium", amount: 199, method: "Bank Transfer", status: "Pending", date: "2026-05-05", invoice: "INV-007" },
-  { id: 8, txnId: "TXN-20260506-008", school: "Pine Grove Middle School", plan: "Premium", amount: 199, method: "Credit Card", status: "Overdue", date: "2026-05-06", invoice: "INV-008" },
+  { id: 1, txnId: "TXN-20260501-001", school: "Springfield Academy", plan: "Premium", amount: 199,gst:1250,total:1250,  method: "Credit Card", status: "Paid", date: "2026-05-01", invoice: "INV-001" },
+  { id: 2, txnId: "TXN-20260501-002", school: "Riverside School", plan: "Premium", amount: 199, gst:1250,total:1250, method: "Bank Transfer", status: "Paid", date: "2026-05-01", invoice: "INV-002" },
+  { id: 3, txnId: "TXN-20260501-003", school: "Blue Sky Academy", plan: "Basic", amount: 99,gst:1250,total:1250, method: "Credit Card", status: "Paid", date: "2026-05-01", invoice: "INV-003" },
+  { id: 4, txnId: "TXN-20260502-004", school: "Oakwood International", plan: "Enterprise", amount: 499,gst:1250, total:1250,method: "Bank Transfer", status: "Paid", date: "2026-05-02", invoice: "INV-004" },
+  { id: 5, txnId: "TXN-20260503-005", school: "Cedar Valley Academy", plan: "Premium", amount: 199,gst:1250, total:1250,method: "Credit Card", status: "Overdue", date: "2026-05-03", invoice: "INV-005" },
+  { id: 6, txnId: "TXN-20260504-006", school: "DW Public School", plan: "Premium", amount: 199, gst:1250,total:1250,method: "Credit Card", status: "Paid", date: "2026-05-04", invoice: "INV-006" },
+  { id: 7, txnId: "TXN-20260505-007", school: "Maple Heights School", plan: "Premium", amount: 199,gst:1250,total:1250, method: "Bank Transfer", status: "Pending", date: "2026-05-05", invoice: "INV-007" },
+  { id: 8, txnId: "TXN-20260506-008", school: "Pine Grove Middle School", plan: "Premium", amount: 199,gst:1250,total:1250, method: "Credit Card", status: "Overdue", date: "2026-05-06", invoice: "INV-008" },
+  { id: 9, txnId: "TXN-20260507-009", school: "Greenfield High School", plan: "Premium", amount: 199,gst:1250,total:1250, method: "Credit Card", status: "Paid", date: "2026-05-07", invoice: "INV-009" },
+  { id: 10, txnId: "TXN-20260508-010", school: "Sunridge Academy", plan: "Basic", amount: 99,gst:1250,total:1250, method: "Bank Transfer", status: "Paid", date: "2026-05-08", invoice: "INV-010" },
+  { id: 11, txnId: "TXN-20260509-011", school: "Lakeside Prep School", plan: "Enterprise", amount: 499,gst:1250,total:1250, method: "Credit Card", status: "Paid", date: "2026-05-09", invoice: "INV-011" },
+  { id: 12, txnId: "TXN-20260510-012", school: "Hillcrest Academy", plan: "Premium", amount: 199,gst:1250, total:1250,method: "Credit Card", status: "Pending", date: "2026-05-10", invoice: "INV-012" },
 ];
 
 // --- MODULES ---
 export const modules = [
-  { id: 1, name: "Attendance Management", description: "Track daily student attendance", category: "Academic", assignedTo: 8, status: "Active", version: "2.1.0" },
-  { id: 2, name: "Grade Book", description: "Record and manage student grades", category: "Academic", assignedTo: 8, status: "Active", version: "3.0.1" },
-  { id: 3, name: "Parent Portal", description: "Parent communication and updates", category: "Communication", assignedTo: 6, status: "Active", version: "1.5.2" },
-  { id: 4, name: "Fee Management", description: "Manage school fees and payments", category: "Finance", assignedTo: 5, status: "Active", version: "2.0.0" },
-  { id: 5, name: "Timetable Generator", description: "Automated timetable scheduling", category: "Admin", assignedTo: 7, status: "Active", version: "1.2.1" },
-  { id: 6, name: "Library Management", description: "Book catalog and lending system", category: "Admin", assignedTo: 4, status: "Inactive", version: "1.0.3" },
-  { id: 7, name: "Transport Management", description: "Bus routes and student tracking", category: "Admin", assignedTo: 3, status: "Active", version: "1.1.0" },
-  { id: 8, name: "Exam Scheduler", description: "Plan and manage examinations", category: "Academic", assignedTo: 8, status: "Active", version: "2.2.0" },
-  { id: 9, name: "HR & Payroll", description: "Staff management and payroll processing", category: "Finance", assignedTo: 2, status: "Beta", version: "0.9.5" },
-  { id: 10, name: "Analytics Dashboard", description: "Advanced reporting and insights", category: "Analytics", assignedTo: 5, status: "Active", version: "3.1.0" },
+  { id: 1, name: "Students", category: "Academic", plan: "Basic", status: "Active", planScope: "Basic | Standard | Premium", enabled: true },
+  { id: 2, name: "Teachers", category: "Academic", plan: "Basic", status: "Active", planScope: "Standard | Premium", enabled: true },
+  { id: 3, name: "Classes", category: "Academic", plan: "Basic", status: "Active", planScope: "Basic", enabled: true },
+  { id: 4, name: "Attendance", category: "Academic", plan: "Basic", status: "Active", planScope: "Basic | Standard | Premium", enabled: true },
+  { id: 5, name: "Homework", category: "Academic", plan: "Basic", status: "Active", planScope: "Basic", enabled: true },
+  { id: 6, name: "Exams", category: "Academic", plan: "Basic", status: "Active", planScope: "Basic | Standard | Premium", enabled: true },
+  { id: 7, name: "Timetable", category: "Academic", plan: "Basic", status: "Active", planScope: "Basic | Premium", enabled: true },
+  { id: 8, name: "Fees", category: "Finance", plan: "Basic", status: "Active", planScope: "Basic | Premium", enabled: true },
+  { id: 9, name: "Reports", category: "Analytics", plan: "Basic", status: "Active", planScope: "Basic | Standard | Premium", enabled: true },
+  { id: 10, name: "Analytics", category: "Analytics", plan: "Basic", status: "Active", planScope: "Basic", enabled: true },
+  { id: 11, name: "Messaging", category: "Communication", plan: "Basic", status: "Active", planScope: "Basic | Standard | Premium", enabled: true },
+  { id: 12, name: "Notifications", category: "Communication", plan: "Basic", status: "Inactive", planScope: "Premium", enabled: false },
 ];
 
 // --- NOTIFICATIONS ---

@@ -105,10 +105,11 @@ export default function Pagination({
         {/* Next › */}
      
       </div>
-
+   <div className="flex items-center gap-3 flex-shrink-0">
+        <div className="inline-flex items-stretch gap-2">
       {/* Far Right: X–Y of Z */}
 <button
-  className="inline-flex items-center px-2.5 py-1.5 text-xs font-medium text-gray-700 bg-white border border-gray-200 rounded-md cursor-pointer hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition-colors flex-shrink-0"
+  className="inline-flex items-center px-3 py-1 text-[12px] font-medium text-gray-700 bg-white border border-gray-200 rounded-[6px] cursor-pointer hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition-colors flex-shrink-0"
   onClick={() => onPageChange(Math.max(1, safePage - 1))}
   disabled={safePage === 1}
 >
@@ -119,7 +120,7 @@ export default function Pagination({
 </button>
 
 <button
-  className="inline-flex items-center px-2.5 py-1.5 text-xs font-medium text-gray-700 bg-white border border-gray-200 rounded-md cursor-pointer hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition-colors flex-shrink-0"
+  className="inline-flex items-center px-3 py-1 text-[12px] font-medium text-gray-700 bg-white border border-gray-200 rounded-[6px] cursor-pointer hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition-colors flex-shrink-0"
   onClick={() => onPageChange(Math.min(safeTotalPages, safePage + 1))}
   disabled={safePage === safeTotalPages}
 >
@@ -128,6 +129,8 @@ export default function Pagination({
     <path d="M6 3l5 5-5 5" />
   </svg>
 </button>
+</div> 
+</div>
     </div>
   );
 }

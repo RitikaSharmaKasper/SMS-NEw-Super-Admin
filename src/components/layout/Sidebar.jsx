@@ -110,7 +110,7 @@ function NavList({ collapsed, onItemClick }) {
 
           {/* Section label */}
           {!collapsed ? (
-            <p className="px-5 pt-4 pb-1.5 text-[12px] font-[500] uppercase  text-[#6B7280] select-none truncate leading-none whitespace-nowrap">
+           <p className={`🔴 ${si === 0 ? 'pt-1' : 'pt-4'} 🔴 pb-1.5 px-5 text-[12px] font-[500] uppercase text-[#6B7280] select-none truncate leading-none whitespace-nowrap`}>
               {section.label}
             </p>
           ) : (
@@ -239,18 +239,29 @@ export default function Sidebar() {
         `}
       >
         <Logo collapsed={collapsed} />
-        <NavList collapsed={collapsed} />
+
+
+
+{/* ── Collapse Toggle Button (absolutely positioned on the right edge) ── */}
+<div className={`relative flex items-center ${collapsed ? 'justify-center' : 'justify-end'} py-3 flex-shrink-0`}>
+  <button
+    onClick={() => setCollapsed(v => !v)}
+    className={`
+      absolute ${collapsed ? 'left-1/2 -translate-x-1/2' : '-right-3 top-1/2 -translate-y-1/2'}
+      w-10 h-10 rounded-full bg-[#0F2C46] text-white border border-white/10 
+      flex items-center justify-center text-[#0F1729] hover:text-white hover:bg-[#0F2C46] 
+      transition-all duration-300 shadow-lg
+    `}
+    aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+  >
+    {collapsed ? <MdChevronRight size={22} /> : <MdChevronLeft size={22} />}
+  </button>
+</div>
+
+<NavList collapsed={collapsed} />
 
         {/* Collapse toggle */}
-        <div className="flex items-center justify-end px-2 py-2  flex-shrink-0">
-          <button
-            onClick={() => setCollapsed(v => !v)}
-            className="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white/60 hover:text-white transition-all"
-            aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-          >
-            {collapsed ? <MdChevronRight size={15} /> : <MdChevronLeft size={15} />}
-          </button>
-        </div>
+       
 
         <UserFooter collapsed={collapsed} />
       </aside>

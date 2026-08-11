@@ -58,21 +58,8 @@ const defaultSettings = {
     smsAlerts: false,
   }
 };
-const [emailError, setEmailError] = useState('');
 
-const validateEmail = (email) => {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
-};
 
-const handleEmailChange = (value) => {
-  update('platformname', value);
-  if (value && !validateEmail(value)) {
-    setEmailError('Please enter a valid email address');
-  } else {
-    setEmailError('');
-  }
-};
 const TABS = [
   { id: 'maintenance', label: 'Maintenance' },
   { id: 'loginSecurity', label: 'Login Security' },
@@ -471,11 +458,9 @@ function SubscriptionsTab({ data, update }) {
 }
 
 function PlatformEmailTab({ data, update }) {
- const [showSmtpPassword, setShowSmtpPassword] = useState(false);
-  const [showFromPassword, setShowFromPassword] = useState(false);
+const [showSmtpPassword, setShowSmtpPassword] = useState(false);
+const [showFromPassword, setShowFromPassword] = useState(false);
   const [testEmail, setTestEmail] = useState('');
-  const [fromEmailError, setFromEmailError] = useState('');
-  const [testEmailError, setTestEmailError] = useState('');
 
   return (
     <div>

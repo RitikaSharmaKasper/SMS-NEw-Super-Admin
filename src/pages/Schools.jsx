@@ -3,7 +3,7 @@ import { schools } from '../data/dummyData';
 import FilterDropdown from '../components/layout/FilterDropdown';
 import ActionMenu from '../components/layout/ActionMenu';
 import Pagination from '../components/layout/Pagination';
-
+import PLUS from  "../assets/images/PLUS.svg";
 const STATUS_OPTIONS = ['All Status', 'Active', 'Trial', 'Suspended', 'Expired'];
 const PLAN_OPTIONS = ['All Plans', 'Basic', 'Premium', 'Enterprise'];
 
@@ -59,9 +59,7 @@ export default function Schools() {
           <h1 className="text-[24px] font-[700] font-bold text-[#000000] leading-snug">Schools</h1>
           <p className="text-[16px] text-[#6B7280] font-[400] -mt-[2px] font-Public-Sans">Manage all registered schools on the platform</p>
         </div>
-        <button className="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-md border-none cursor-pointer transition-colors hover:bg-blue-700 whitespace-nowrap self-start sm:self-auto">
-          <PlusIcon /> Add School
-        </button>
+       
       </div>
 
       {/* ── Filters row ── */}
@@ -153,9 +151,17 @@ export default function Schools() {
           </table>
         </div>
       </div>
+<button
+  onClick={() => {/* your add school handler */}}
+className="fixed bottom-17 right-6 w-11 h-11 flex items-center justify-center bg-[#0DA2E7] text-white rounded-full border-none cursor-pointer  transition-colors  z-50"
+  title="Add School"
+>
+  {/* <PlusIcon className="w-6 h-6" /> */}
 
+  <img src={PLUS} alt="" className="w-8 h-8" />
+</button>
       {/* Pagination outside table card in blank space */}
-      <div className="flex-shrink-0 px-1 mt-1">
+      <div className="flex-shrink-0 px-1 mt-6">
         <Pagination
           page={page}
           totalPages={totalPages}

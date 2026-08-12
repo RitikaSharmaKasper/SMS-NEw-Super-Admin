@@ -2,12 +2,12 @@ import React from 'react';
 import { MdCardMembership, MdSearch } from 'react-icons/md';
 
 const SUBS = [
-  { id: 1, school: 'Greenwood High',       plan: 'Pro',   started: '01 Jan 2024', expires: '31 Dec 2024', amount: '$299', status: 'Active'   },
-  { id: 2, school: 'Sunrise Academy',      plan: 'Basic', started: '15 Mar 2024', expires: '14 Mar 2025', amount: '$99',  status: 'Active'   },
-  { id: 3, school: 'Blue Bell Institute',  plan: 'Pro',   started: '01 Aug 2023', expires: '31 Jul 2024', amount: '$299', status: 'Expiring' },
-  { id: 4, school: 'Delhi Public School',  plan: 'Pro',   started: '01 Nov 2023', expires: '31 Oct 2024', amount: '$299', status: 'Active'   },
-  { id: 5, school: 'Horizon International',plan: 'Pro',   started: '10 Apr 2024', expires: '09 Apr 2025', amount: '$299', status: 'Active'   },
-  { id: 6, school: 'Springfield School',   plan: 'Basic', started: '20 Feb 2024', expires: '19 Feb 2025', amount: '$99',  status: 'Inactive' },
+  { id: 1, school: 'Greenwood High',       plan: 'Pro',   started: '01 Jan 2024', expires: '31 Dec 2024', amount: '299', status: 'Active'   },
+  { id: 2, school: 'Sunrise Academy',      plan: 'Basic', started: '15 Mar 2024', expires: '14 Mar 2025', amount: '99',  status: 'Active'   },
+  { id: 3, school: 'Blue Bell Institute',  plan: 'Pro',   started: '01 Aug 2023', expires: '31 Jul 2024', amount: '299', status: 'Expiring' },
+  { id: 4, school: 'Delhi Public School',  plan: 'Pro',   started: '01 Nov 2023', expires: '31 Oct 2024', amount: '299', status: 'Active'   },
+  { id: 5, school: 'Horizon International',plan: 'Pro',   started: '10 Apr 2024', expires: '09 Apr 2025', amount: '299', status: 'Active'   },
+  { id: 6, school: 'Springfield School',   plan: 'Basic', started: '20 Feb 2024', expires: '19 Feb 2025', amount: '99',  status: 'Inactive' },
 ];
 
 function statusBadgeClass(s) {
@@ -63,7 +63,7 @@ export default function ActiveSubscription() {
             </thead>
             <tbody>
               {SUBS.map(s => (
-                <tr key={s.id} className="table-row-hover hover:bg-indigo-50/40">
+                <tr key={s.id} className="table-row-hover ">
                   <td className="table-td font-medium text-gray-800 flex items-center gap-2">
                     <MdCardMembership className="text-indigo-500" size={15} />
                     {s.school}
@@ -75,7 +75,7 @@ export default function ActiveSubscription() {
                   </td>
                   <td className="table-td">{s.started}</td>
                   <td className="table-td">{s.expires}</td>
-                  <td className="table-td font-semibold text-gray-700">{s.amount}</td>
+                  <td className="table-td font-semibold text-gray-700">₹{s.amount}</td>
                   <td className="table-td">
                     <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium whitespace-nowrap ${statusBadgeClass(s.status)}`}>
                       {s.status}

@@ -14,7 +14,7 @@
  *   perPageOptions   {number[]} - optional, defaults to [10, 20, 50, 100]
  */
 
-const DEFAULT_PER_PAGE_OPTIONS = [5, 10, 20, 50];
+const DEFAULT_PER_PAGE_OPTIONS = [10, 20, 50];
 
 export default function Pagination({
   page = 1,

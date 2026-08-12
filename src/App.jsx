@@ -5,7 +5,7 @@ import Header from './components/layout/Header';
 import Dashboard             from './pages/Dashboard';
 import Schools               from './pages/Schools';
 import RegistrationRequests  from './pages/RegistrationRequests';
-import Plans                 from './pages/Plans';
+import Plans from  "./pages/Plans/Plans";
 import Subscriptions         from './pages/Subscriptions';
 import Payments              from './pages/Payments';
 import Modules               from './pages/Modules';
@@ -17,7 +17,9 @@ import AuditLogs             from './pages/AuditLogs';
 import SystemSettings        from './pages/SystemSettings';
 import Profile               from './pages/Profile';
 import ReportsAnalytics from './pages/ReportsAnalytics';
-import Maintenance from './pages/Settings/Maintenance';
+import AddOn from './pages/Plans/Addon';
+import CreatePlan from './pages/Plans/CreatePlan';
+
 
 export default function App() {
   return (
@@ -29,7 +31,8 @@ export default function App() {
           <Route path="/"                       element={<Dashboard />} />
           <Route path="/schools"                element={<Schools />} />
           <Route path="/registration-requests"  element={<RegistrationRequests />} />
-          <Route path="/plans"                  element={<Plans />} />
+          <Route path="/plans"                  element={<Plans/>} />
+          <Route path="/plans/add-ons" element ={<AddOn/>}/>
           <Route path="/subscriptions"          element={<Subscriptions />} />
           <Route path="/payments"               element={<Payments />} />
           <Route path="/modules"                element={<Modules />} />
@@ -41,7 +44,8 @@ export default function App() {
           <Route path="/system-settings"        element={<SystemSettings />} />
           <Route path="/profile"                element={<Profile />} />
           <Route path="/reportsanalytics"       element={<ReportsAnalytics/>}/>
-             <Route path="/systemsettings"       element={<Maintenance/>}/>
+             <Route path="/systemsettings"       element={<SystemSettings/>}/>
+             <Route path="/plans/create" element={<CreatePlan/>}/>
           </Routes>
       </div>
     </div>

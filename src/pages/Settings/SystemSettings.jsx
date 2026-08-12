@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react';
 import server from "../../assets/images/server.svg";
 import email from "../../assets/images/emailsettings.svg";
 import send from "../../assets/images/send.svg";
+import {Upload ,Trash2} from "lucide-react";
+
+import brandlogo from "../../assets/images/brandlogo.svg";
 const SETTINGS_KEY = 'superadmin_platform_settings';
 
 const defaultSettings = {
@@ -601,18 +604,54 @@ function PlatformInfoTab({ data, update }) {
   return (
     <div>
       <SectionHeader title="Platform Info" description="General information about this platform instance" />
-      <SettingRow title="Brand Logo" description="Shown on the marketing site, login, and 404 pages. PNG, JPG, WEBP, or SVG up to 5MB. Leave empty to use the default mark.">
- <div className="flex items-center gap-2 w-[260px] px-3.5 border border-[#E6E6E6] rounded-[12px] bg-[#FFFFFF]">
-          <img src={server} className="w-4 h-4 flex-shrink-0 opacity-60" />
-          <input
-            type="text"
-            value={data.brandlogo}
-            onChange={(e) => update('brandlogo', e.target.value)}
-            placeholder="smtp.example.com"
-            className="flex-1 min-w-0 py-2.5 text-[16px] outline-none bg-transparent text-[#9C9C9C] placeholder-[#9C9C9C]"
-          />
-        </div>
-      </SettingRow>
+<SettingRow 
+  title="Brand Logo" 
+  description="Shown on the marketing site, login, and 404 pages. PNG, JPG, WEBP, or SVG up to 5MB. Leave empty to use the default mark."
+>
+  <div className="flex items-center gap-2">
+    {/* Logo preview */}
+    <div className="w-15 h-15 flex items-center justify-center border-1 border-[#E6E6E6] rounded-[10px] bg-[#FFFFFF] overflow-hidden">
+      <img 
+        src={brandlogo} 
+        alt="Brand logo" 
+        className="w-full h-full object-contain"
+      />
+    </div>
+
+    {/* Upload button */}
+    <label className="flex items-center gap-1.5 px-4 py-2.5 font-body-m-12-a border border-[#E6E6E6] rounded-[10px] bg-[#FFFFFF] text-[14px] text-[#696969] cursor-pointer hover:bg-[#F7F7F7]">
+      Upload
+     
+      <Upload className="w-4 h-4" /> 
+      <input
+        type="file"
+        accept=".png,.jpg,.jpeg,.webp,.svg"
+        className="hidden"
+        onChange={(e) => {
+          const file = e.target.files?.[0];
+          if (!file) return;
+          if (file.size > 5 * 1024 * 1024) {
+            alert('File must be under 5MB');
+            return;
+          }
+          const url = URL.createObjectURL(file);
+          update('brandlogo', url);
+        }}
+      />
+    </label>
+
+    {/* Remove button */}
+    <button
+      type="button"
+      onClick={() => update('brandlogo', '')}
+      className="flex items-center gap-1.5 px-4 py-2.5 font-body-m-12-a border border-[#EF4343] rounded-[10px] bg-[#FFFFFF] text-[14px] text-[#EF4343] cursor-pointer hover:bg-[#FDF2F2]"
+    >
+      Remove
+
+      <Trash2 className="w-4 h-4" />
+    </button>
+  </div>
+</SettingRow>
       <SettingRow title="Platform Name" description="Brand name shown across the app and in the subject and body of outbound system emails..">
        <div className="flex items-center gap-2 w-[260px] px-3.5 border border-[#E6E6E6] rounded-[12px] bg-[#FFFFFF]">
           <img src={server} className="w-4 h-4 flex-shrink-0 opacity-60" />

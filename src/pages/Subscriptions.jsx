@@ -124,7 +124,6 @@ export default function Subscriptions() {
         </div>
       </div>
 
-      {/* Pagination outside table card in blank space */}
       <div className="flex-shrink-0 px-1 mt-1">
         <Pagination
           page={page}

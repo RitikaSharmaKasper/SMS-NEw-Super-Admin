@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Segoe+UI&display=swap');
 @import "tailwindcss";
-
 /* ─── Source hint for Tailwind v4 to scan all component files ─── */
 @source "../src/**/*.{js,jsx,ts,tsx}";
 
@@ -9,10 +10,13 @@
   --font-sans: 'Public Sans';
 
   --font-body-m-12-a: 'Public Sans', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
-  
+    --font-inter: 'Inter', 'Public Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   /* Segoe UI - separate font option */
   --font-segoe: 'Segoe UI', 'Public Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-family-mono: "Consolas", ui-monospace, monospace;
+
+
+
 
   --spacing-px:  1px;
   --spacing-0:   0px;
@@ -55,12 +59,22 @@
   /* Text */
   --color-text-primary:   #111827;
   --color-text-secondary: #000000;
-  --color-text-muted:     #9ca3af;
+  --color-text-muted:     #6B7280;
 
   /* Border */
   --color-border: #e5e7eb;
 }
+@utility font-inter {
+  font-family: 'Inter', 'Public Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+}
 
+@utility font-public-sans {
+  font-family: 'Public Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+@utility font-segoe {
+  font-family: 'Segoe UI', 'Public Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+}
 /* ─── Base — let Tailwind preflight handle resets ─────── */
 /* Do NOT override margin/padding here — it breaks utility classes */
 
@@ -235,7 +249,9 @@ body {
 @utility table-th {
   text-align: left;
   padding: 0.625rem 0.875rem;
-  font-size: 0.75rem;
+  font-size: 14px;
+    font-family: var(--font-sans);
+  font-style:semibold;
   font-weight: 600;
   color: var(--color-text-muted);
   border-bottom: 1.5px solid var(--color-border);
@@ -302,7 +318,76 @@ body {
   font-size: 0.75rem;
 }
 
+/* Custom Checkbox Styles */
+.custom-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 21px;
+  height: 21px;
+  border: 1.5px solid #0DA2E7;
+  border-radius: 4px;
+  background-color: white;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
 
+.custom-checkbox:checked {
+  background-color: #0DA2E7; /* Blue background when checked */
+  border-color: #0DA2E7;
+}
+
+.custom-checkbox:checked::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.custom-checkbox:hover {
+  border-color: #0DA2E7;
+}
+
+.custom-checkbox:checked:hover {
+  background-color: #0DA2E7;
+  border-color: #0DA2E7;
+}
+
+/* For the billing options checkboxes */
+.billing-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 21px;
+  height:21px;
+  border: 1.5px solid #0DA2E7;
+  border-radius: 4px;
+  background-color: white;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.billing-checkbox:checked {
+  background-color: #0DA2E7;
+  border-color: #0DA2E7;
+}
+
+.billing-checkbox:checked::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 16px;
+  font-weight: normal;
+}
 
 
 

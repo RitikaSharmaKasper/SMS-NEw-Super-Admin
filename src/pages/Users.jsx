@@ -49,7 +49,7 @@ export default function Users() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 flex-shrink-0 mb-2">
         <div>
           <h1 className="text-[24px] font-[700] font-bold text-[#000000] leading-snug">Users</h1>
-          <p className="text-[16px] text-[#6B7280] font-[400] -mt-[2px] font-Public-Sans">Manage platform users and admin access</p>
+          <p className="text-[16px] text-[#6B7280] font-[400] -mt-[2px] font-sans">Manage platform users and admin access</p>
         </div>
         {/* <button className="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-md border-none cursor-pointer transition-colors hover:bg-blue-700 whitespace-nowrap self-start sm:self-auto">
           <PlusIcon /> Add User

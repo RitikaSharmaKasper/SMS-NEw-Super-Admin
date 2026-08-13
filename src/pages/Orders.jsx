@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { payments } from '../data/dummyData';
+import { orders } from '../data/dummyData';
 import FilterDropdown from '../components/layout/FilterDropdown';
 import ActionMenu from '../components/layout/ActionMenu';
 import Pagination from '../components/layout/Pagination';
@@ -7,14 +7,14 @@ import Pagination from '../components/layout/Pagination';
 const STATUS_OPTIONS = ['All Status', 'Paid', 'Pending', 'Overdue'];
 const METHOD_OPTIONS = ['All Methods', 'Credit Card', 'Bank Transfer'];
 
-export default function Payments() {
+export default function Orders() {
   const [search, setSearch]       = useState('');
   const [statusFilter, setStatus] = useState('All Status');
   const [methodFilter, setMethod] = useState('All Methods');
   const [page, setPage]           = useState(1);
   const [perPage, setPerPage]     = useState(10);
 
-  const filtered = payments.filter((p) => {
+  const filtered = orders.filter((p) => {
     const q = search.trim().toLowerCase();
     const matchSearch = !q || p.school.toLowerCase().includes(q) || p.txnId.toLowerCase().includes(q);
     const matchStatus = statusFilter === 'All Status'  || p.status === statusFilter;
@@ -44,8 +44,8 @@ export default function Payments() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 flex-shrink-0 mb-2">
         <div>
-          <h1 className="text-[24px] font-[700] font-bold text-[#000000] leading-snug">Payments</h1>
-          <p className="text-[16px] text-[#6B7280] font-[400] -mt-[2px] font-sans">Track all payment transactions across schools</p>
+          <h1 className="text-[24px] font-[700] font-bold text-[#000000] leading-snug">Orders</h1>
+          <p className="text-[16px] text-[#6B7280] font-[400] -mt-[2px] font-sans">Track and manage all subscription orders</p>
         </div>
         {/* <button className="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-md border-none cursor-pointer transition-colors hover:bg-blue-700 whitespace-nowrap self-start sm:self-auto">
           <DownloadIcon /> Export Payments
@@ -58,7 +58,7 @@ export default function Payments() {
           <span className="absolute left-2.5 text-[#696969] pointer-events-none"><SearchIcon /></span>
           <input
             type="text"
-            placeholder="Search by school or TXN ID..."
+            placeholder="Search by school or Order..."
             className="w-full pl-9 pr-3.5 py-2 text-[16px] border border-[#DDDDDD] rounded-[8px] outline-none bg-[#F3F4F6] text-[#696969] transition-colors"
             value={search}
             onChange={(e) => { setSearch(e.target.value); setPage(1); }}
@@ -74,17 +74,18 @@ export default function Payments() {
           <table className="w-full border-collapse text-sm align-top">
             <thead className="bg-[#FFFFFF]">
               <tr>
-                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">TXN ID</th>
+                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">Payment ID</th>
                 <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">School</th>
-                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden sm:table-cell">Plan</th>
+                <th className="px-6 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden sm:table-cell">Plan</th>
                 <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">Taxable Amt</th>
-                              <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">GST</th>
+                              <th className="px-5 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">GST</th>
                          <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">Total</th>
-                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden md:table-cell">Method</th>
-                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">Status</th>
-                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden lg:table-cell">Date</th>
-                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden xl:table-cell">Invoice</th>
-                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">Action</th>
+                <th className="px-6 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden md:table-cell">Receipt</th>
+
+                <th className="px-6 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden lg:table-cell">Date</th>
+                                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">Status</th>
+                {/* <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden xl:table-cell">Invoice</th> */}
+                <th className="px-6 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -94,33 +95,35 @@ export default function Payments() {
                 </tr>
               ) : paginated.map((p) => (
                 <tr key={p.id} className="border-b border-[#F2F3F5] last:border-b-0  transition-colors">
-                  <td className="px-4 py-4 text-[14px] font-[400] font-mono text-[#2563EB] align-middle">{p.txnId}</td>
-                  <td className="px-4 py-4 font-semibold text-[#0F1729] text-[14px] align-middle">{p.school}</td>
-                  <td className="px-4 py-4 align-middle hidden sm:table-cell">
+                  <td className="px-4 py-6 text-[14px] font-[400] font-mono text-[#2563EB] align-middle">{p.paymentId}</td>
+                  <td className="px-4 py-6 font-semibold text-[#0F1729] text-[14px] align-middle">{p.school}</td>
+                  <td className="px-4 py-6 align-middle hidden sm:table-cell">
                     <span className={`inline-flex items-center px-3 py-0.5 rounded-full text-[13px] font-[600] font-semibold whitespace-nowrap ${planBadgeClass()}`}>
                       {p.plan}
                     </span>
                   </td>
-                  <td className="px-5 py-4 font-normal text-[#0F1729] text-[14px] align-middle"> ₹{p.amount}</td>
-                       <td className="px-4 py-4 font-normal text-[#0F1729] text-[14px] align-middle"> ₹{p.gst}</td>
-                        <td className="px-4 py-4 font-bold font-[700] text-[#0F1729] text-[14px] align-middle"> ₹{p.total}</td>
-                  <td className="px-4 py-4 text-[#6B7280] text-[14px] align-middle hidden md:table-cell">{p.method}</td>
-                  <td className="px-4 py-4 align-middle">
+                  <td className="px-5 py-6 font-normal text-[#0F1729] text-[14px] align-middle"> ₹{p.taxableAmt}</td>
+                       <td className="px-4 py-6 font-normal text-[#0F1729] text-[14px] align-middle"> ₹{p.gst}</td>
+                        <td className="px-4 py-6 font-bold font-[700] text-[#0F1729] text-[14px] align-middle"> ₹{p.total}</td>
+                  <td className="px-4 py-6 text-[#6B7280] text-[14px] align-middle hidden md:table-cell">{p.receipt}</td>
+                 
+                  <td className="px-4 py-6 text-[#6B7280] text-[14px] align-middle hidden lg:table-cell">{p.date}</td>
+                   <td className="px-3 py-6 align-middle">
                     <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium whitespace-nowrap ${statusBadgeClass(p.status)}`}>
                       {p.status}
                     </span>
                   </td>
-                  <td className="px-4 py-4 text-[#6B7280] text-[14px] align-middle hidden lg:table-cell">{p.date}</td>
-                  <td className="px-4 py-4 text-[14px] font-mono text-[#6B7280] align-middle hidden xl:table-cell">{p.invoice}</td>
-                  <td className="px-4 py-4 align-middle">
-                    <ActionMenu
+            
+                
+                    {/* <ActionMenu
                       actions={[
                         { label: 'Download Invoice', icon: <DownloadIcon />, onClick: () => {} },
                         { label: 'View Receipt',     icon: <EyeIcon />,      onClick: () => {} },
                       ]}
                       align="right"
-                    />
-                  </td>
+                    /> */}
+    <td className="px-5 py-6 text-[14px] font-inter text-[#0DA2E7] align-middle hidden xl:table-cell">Details</td>
+
                 </tr>
               ))}
             </tbody>

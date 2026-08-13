@@ -2,15 +2,30 @@ import { Link } from 'react-router-dom';
 import { plansData } from "../../data/Plans";
 import PLUS from "../../assets/images/PLUS.svg";
 import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 export default function Plans() {
      const navigate = useNavigate();
+
+  // merge statically-defined plansData with plans saved from the Create Plan form
+  const [allPlans, setAllPlans] = useState(plansData);
+
+  useEffect(() => {
+    try {
+      const customPlans = JSON.parse(localStorage.getItem('customPlans') || '[]');
+      setAllPlans([...plansData, ...customPlans]);
+    } catch (err) {
+      console.error('Failed to load custom plans from localStorage', err);
+      setAllPlans(plansData);
+    }
+  }, []);
+
   return (
     <div className="flex flex-col h-full min-h-0 overflow-y-auto gap-4 pt-6 pl-6 pr-0 pb-5">
       {/* ── Header ── */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 flex-shrink-0 mb-2">
         <div>
           <h1 className="text-[24px] font-[700] font-bold text-[#000000] leading-snug">Plans</h1>
-          <p className="text-[16px] text-[#6B7280] font-[400] -mt-[2px] font-Public-Sans">Manage subscription plans for schools</p>
+          <p className="text-[16px] text-[#6B7280] font-[400] -mt-[2px] font-sans">Manage subscription plans for schools</p>
         </div>
 
         {/* Plans / Add-Ons tab switch */}
@@ -44,7 +59,7 @@ className="px-7 py-1 text-[15px] font-medium font-[500]  rounded-[8px] bg-[#F5F7
         2xl (1536+): 4 cards
       */}
       <div className="flex flex-wrap gap-4">
-        {plansData.map((plan) => (
+        {allPlans.map((plan) => (
           <div
             key={plan.id}
             className={`relative flex flex-col w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] 2xl:w-[calc(25%-18px)] rounded-[16px] bg-[#FFFFFF] py-4.5 px-5 gap-2 ${
@@ -87,7 +102,7 @@ className="px-7 py-1 text-[15px] font-medium font-[500]  rounded-[8px] bg-[#F5F7
             </ul>
 
             <button
-          
+              onClick={() => navigate(`/plans/edit/${plan.id}`)}
               className={`mt-auto w-full py-2 text-[14px] font-[600] font-semibold  rounded-[8px] border cursor-pointer transition-colors ${
                 plan.popular
                   ? 'bg-[#0DA2E7] border-[#0DA2E7] text-white hover:bg-[#0b8fcb]'

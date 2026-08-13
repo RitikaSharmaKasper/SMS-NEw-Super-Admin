@@ -55,7 +55,7 @@ export default function Modules() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 flex-shrink-0 mb-2">
         <div>
           <h1 className="text-[24px] font-[700] font-bold text-[#000000] leading-snug">Modules</h1>
-          <p className="text-[16px] text-[#6B7280] font-[400] -mt-[2px] font-Public-Sans">Enable or disable platform modules globally</p>
+          <p className="text-[16px] text-[#6B7280] font-[400] -mt-[2px] font-sans">Enable or disable platform modules globally</p>
         </div>
       </div>
 

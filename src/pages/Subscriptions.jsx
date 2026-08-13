@@ -46,7 +46,7 @@ export default function Subscriptions() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 flex-shrink-0 mb-2">
         <div>
           <h1 className="text-[24px] font-[700] font-bold text-[#000000] leading-snug">Subscriptions</h1>
-          <p className="text-[16px] text-[#6B7280] font-[400] -mt-[2px] font-Public-Sans">Manage school subscription statuses and billing cycles</p>
+          <p className="text-[16px] text-[#6B7280] font-[400] -mt-[2px] font-sans">Manage school subscription statuses and billing cycles</p>
         </div>
       </div>
 

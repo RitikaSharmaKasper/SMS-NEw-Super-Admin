@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-
+import { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+ import { plansData } from "../../data/Plans";
 const inputClass =
   "w-full px-3.5 py-3 text-[16px] border border-[#E6E6E6] rounded-[12px] outline-none bg-[#FFFFFF] text-[#696969] placeholder-[#696969] transition-colors";
 const labelClass = "block text-[14px] font-[600] text-[#374151] mb-1 font-segoe font-semibold";
@@ -37,8 +37,9 @@ const sanitizeNumeric = (value) => {
   return cleaned;
 };
 
-export default function CreatePlan() {
+export default function EditPlan() {
   const navigate = useNavigate();
+  const { id } = useParams();
 
   const [form, setForm] = useState({
     planName: '',
@@ -104,6 +105,47 @@ export default function CreatePlan() {
 
   const [errors, setErrors] = useState({});
 
+
+
+useEffect(() => {
+  try {
+    const customPlans = JSON.parse(localStorage.getItem('customPlans') || '[]');
+    const customMatch = customPlans.find((p) => String(p.id) === String(id));
+
+    if (customMatch) {
+      // full form data was saved previously (created via CreatePlan form)
+      if (customMatch.formData) setForm(customMatch.formData);
+      if (customMatch.featuresData) setFeatures(customMatch.featuresData);
+      if (customMatch.unlimitedData) setUnlimited(customMatch.unlimitedData);
+      return;
+    }
+
+    // fall back to the static seed data, which has a different shape
+    const staticMatch = plansData.find((p) => String(p.id) === String(id));
+    if (staticMatch) {
+      setForm((f) => ({
+        ...f,
+        planName: staticMatch.name || '',
+        planType: 'Paid',
+        availability: 'Public',
+        monthlyPrice: String(staticMatch.price ?? ''),
+        yearlyPrice: String(staticMatch.yearlyPrice ?? ''),
+        studentLimit: staticMatch.students === 'Unlimited' ? '' : String(staticMatch.students ?? ''),
+        userLimit: staticMatch.teachers === 'Unlimited' ? '' : String(staticMatch.teachers ?? ''),
+      }));
+      setFeatures(staticMatch.modules?.length ? staticMatch.modules : ['', '']);
+      setUnlimited((u) => ({
+        ...u,
+        studentLimit: staticMatch.students === 'Unlimited',
+        userLimit: staticMatch.teachers === 'Unlimited',
+      }));
+    }
+  } catch (err) {
+    console.error('Failed to load plan for editing', err);
+  }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [id]);
+
   const validateForm = () => {
     const newErrors = {};
 
@@ -124,15 +166,15 @@ export default function CreatePlan() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleCreatePlan = () => {
+  const handleUpdatePlan = () => {
     if (!validateForm()) return;
 
     const payload = { ...form, features };
-    console.log('Create plan payload:', payload);
+    console.log('Update plan payload:', payload);
 
-    // persist so the Plans list can pick it up (no backend available in this codebase)
-    const newPlan = {
-      id: Date.now(),
+    // persist so the Plans list reflects the change (no backend available in this codebase)
+    const updatedPlan = {
+      id,
       name: form.planName,
       price: Number(form.monthlyPrice) || 0,
       yearlyPrice: Number(form.yearlyPrice) || 0,
@@ -140,7 +182,6 @@ export default function CreatePlan() {
       teachers: unlimited.userLimit ? 'Unlimited' : (form.userLimit || '0'),
       modules: features.filter((f) => f.trim() !== ''),
       popular: false,
-      // full form data so Edit Plan can prefill every field exactly
       formData: form,
       featuresData: features,
       unlimitedData: unlimited,
@@ -148,9 +189,12 @@ export default function CreatePlan() {
 
     try {
       const existing = JSON.parse(localStorage.getItem('customPlans') || '[]');
-      localStorage.setItem('customPlans', JSON.stringify([...existing, newPlan]));
+      const updatedList = existing.map((p) =>
+        String(p.id) === String(id) ? { ...p, ...updatedPlan } : p
+      );
+      localStorage.setItem('customPlans', JSON.stringify(updatedList));
     } catch (err) {
-      console.error('Failed to save plan to localStorage', err);
+      console.error('Failed to update plan in localStorage', err);
     }
 
     navigate('/plans');
@@ -206,9 +250,9 @@ const toggleUnlimited = (key) => {
     
       <div className="w-full rounded-[16px] border border-[#00000014] bg-[#FFFFFF]">
            <div className="flex-shrink-0 -mt-1 pt-5 pl-5 pb-1 pr-5">
-        <h1 className="text-[24px] font-[700] font-bold text-[#000000] leading-snug">Create Plan</h1>
+        <h1 className="text-[24px] font-[700] font-bold text-[#000000] leading-snug">Edit Plan</h1>
         <p className="text-[16px] text-[#6B7280] font-[400] -mt-[2px] font-sans">
-          Define pricing, limits and feature access for a new plan.
+          Update pricing, limits and feature access for this plan.
         </p>
       </div>
 
@@ -498,7 +542,7 @@ const toggleUnlimited = (key) => {
     }`}
   >
     <span
-      className="absolute top-0.5 left-0.5 w-[14px] h-[14px] rounded-full bg-white transition-transform"
+      className="absolute top-0.25 left-0.5 w-[14px] h-[14px] rounded-full bg-white transition-transform"
       style={{ transform: unlimited[key] ? 'translateX(18px)' : 'translateX(0)' }}
     />
   </button>
@@ -583,10 +627,10 @@ const toggleUnlimited = (key) => {
        <div className="flex justify-end bottom-6 mb-5 mr-6 right-6 z-50">
   <button
     type="button"
-    onClick={handleCreatePlan}
+    onClick={handleUpdatePlan}
     className="px-4 py-2 text-[16px] font-[400] rounded-[8px]  bg-[#0DA2E7] text-white border-none cursor-pointer  transition-colors"
   > 
-    Create Plan
+    Update Plan
   </button>
 </div>
       </div>

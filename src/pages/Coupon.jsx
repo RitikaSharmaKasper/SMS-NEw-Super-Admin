@@ -1,20 +1,22 @@
 import { useState } from 'react';
-import { registrationProposals } from '../data/dummyData';
+import { coupons } from '../data/dummyData';
 import FilterDropdown from '../components/layout/FilterDropdown';
 import ActionMenu from '../components/layout/ActionMenu';
 import Pagination from '../components/layout/Pagination';
-
+import email from "../assets/images/emailsettings.svg";
+import mobile from "../assets/images/contact.svg";
+import couponcode from "../assets/images/couponcode.svg";
 const STATUS_OPTIONS = ['All Status', 'Pending', 'Approved', 'Rejected'];
 const PLAN_OPTIONS   = ['All Plans', 'Basic', 'Premium', 'Enterprise'];
 
-export default function RegistrationRequests() {
+export default function Coupon() {
   const [search, setSearch]             = useState('');
   const [statusFilter, setStatusFilter] = useState('All Status');
   const [planFilter, setPlanFilter]     = useState('All Plans');
   const [page, setPage]                 = useState(1);
   const [perPage, setPerPage]           = useState(10);
 
-  const filtered = registrationProposals.filter((r) => {
+  const filtered = coupons.filter((r) => {
     const q = search.trim().toLowerCase();
     const matchSearch =
       !q ||
@@ -32,11 +34,15 @@ export default function RegistrationRequests() {
 
   function statusBadgeClass(s) {
     const map = {
-      Pending:  'bg-[#FDF5E6] text-[#F69F11]',
-      Approved: 'bg-[#E8F9EE] text-[#21C45D]',
-      Rejected: 'bg-[#FDECEC] text-[#EF4343]',
+      Active:   'bg-[#E8F9EE] text-[#21C45D]',
+      Inactive: 'bg-gray-100 text-gray-500',
+    Expires:'bg-[#FDECEC] text-[#EF4343]',
     };
     return map[s] || 'bg-gray-100 text-gray-500';
+  }
+
+  function planBadgeClass() {
+    return 'bg-[#EEEEEE] text-[#696969]';
   }
 
   function planBadgeClass() {
@@ -49,8 +55,8 @@ export default function RegistrationRequests() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 flex-shrink-0 mb-2">
         <div>
-          <h1 className="text-[24px] font-[700] font-bold text-[#000000] leading-snug">Registration Requests</h1>
-          <p className="text-[16px] text-[#6B7280] font-[400] -mt-[2px] font-sans">Review and approve new school registration requests</p>
+          <h1 className="text-[24px] font-[700] font-bold text-[#000000] leading-snug">Coupons & Promo Codes</h1>
+          <p className="text-[16px] text-[#6B7280] font-[400] -mt-[2px] font-sans">Discounts, fixed credits and trial extensions</p>
         </div>
       </div>
 
@@ -60,7 +66,7 @@ export default function RegistrationRequests() {
           <span className="absolute left-2.5 text-[#696969] pointer-events-none"><SearchIcon /></span>
           <input
             type="text"
-            placeholder="Search requests..."
+            placeholder="Search Lead Name..."
             className="w-full pl-9 pr-3.5 py-2 text-[16px] border border-[#DDDDDD] rounded-[8px] outline-none bg-[#F3F4F6] text-[#696969] transition-colors"
             value={search}
             onChange={(e) => { setSearch(e.target.value); setPage(1); }}
@@ -76,14 +82,14 @@ export default function RegistrationRequests() {
           <table className="w-full border-collapse text-sm align-top">
             <thead className="bg-[#FFFFFF]">
               <tr>
-                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">REQ ID</th>
-                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">School Name</th>
-                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden lg:table-cell">Admin</th>
-                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden sm:table-cell">Plan</th>
-                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden md:table-cell">Date</th>
-                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">Status</th>
-                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden lg:table-cell">Expiry</th>
-                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">Action</th>
+                <th className="pl-4 pr-10 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">Code</th>
+                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">Discount</th>
+                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden lg:table-cell">Redemptions</th>
+                <th className="px-5 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden sm:table-cell">Status</th>
+                {/* <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden md:table-cell">Date</th> */}
+                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">Valid Until</th>
+                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden lg:table-cell">Action</th>
+                {/* <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">Action</th> */}
               </tr>
             </thead>
             <tbody>
@@ -93,28 +99,48 @@ export default function RegistrationRequests() {
                 </tr>
               ) : paginated.map((r) => (
                 <tr key={r.id} className="border-b border-[#F2F3F5] last:border-b-0  transition-colors">
-                  <td className="px-4 py-2.5 align-middle text-[14px] font-[400] font-mono text-[#6B7280]">{r.reqId}</td>
+                      
                   <td className="px-4 py-2.5 text-gray-700 align-middle">
-                    <p className="font-semibold text-[#0F1729] text-[14px] truncate max-w-[160px]">{r.schoolName}</p>
-                  </td>
-                  <td className="px-4 py-2.5 text-gray-700 align-middle hidden lg:table-cell">
+                    {/* <p className="font-semibold text-[#0F1729] text-[14px] truncate max-w-[160px]">{r.leadName}</p> */}
                     <div className="min-w-0">
-                      <p className="font-semibold text-[#0F1729] text-[14px] truncate max-w-[140px]">{r.adminName}</p>
-                      <p className="text-[14px] text-[#6B7280] truncate max-w-[140px]">{r.adminEmail}</p>
+
+<div className="flex items-center gap-1.5">
+    <img src={couponcode} className="w-3.5 h-3.5 " />
+
+                        <p className="font-bold text-[#0F1729] text-[14px] font-sans  max-w-[140px]">{r.code}</p>
+  </div>
+
+
+                   
+                      <p className="text-[12px] text-[#6B7280] mt-1 max-w-[550px] font-sans mt-0 line-clamp-1">{r.description}</p>
                     </div>
                   </td>
-                  <td className="px-4 py-2.5 align-middle hidden sm:table-cell">
-                    <span className={`inline-flex items-center px-3 py-0.5 rounded-full text-[13px] font-[600] font-semibold whitespace-nowrap ${planBadgeClass()}`}>
-                      {r.plan}
-                    </span>
+                  <td className="px-4 py-2.5 text-gray-700 align-middle hidden lg:table-cell">
+                 
+
+                    <div className="min-w-0">
+            
+   
+
+                      <p className="text-[14px] text-[#0F1729]  font-[400]  max-w-[140px] mt-0 font-sans">{r.discount}</p>
+ 
+                    </div>
                   </td>
-                  <td className="px-4 py-2.5 text-[#6B7280] align-middle hidden md:table-cell text-[14px]">{r.date}</td>
-                  <td className="px-4 py-2.5 text-gray-700 align-middle">
-                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[600] font-semibold font-medium whitespace-nowrap ${statusBadgeClass(r.status)}`}>
+      <td className="px-5 py-2.5 text-gray-700 align-middle hidden xl:table-cell">
+      <div className="min-w-0">
+            
+   
+
+                      <p className="text-[14px] text-[#0F1729]  font-[400]  max-w-[140px] mt-0 font-sans">{r.redemptions}/{r.redemptionLimit}</p>
+ 
+                    </div>
+</td>
+                  <td className="px-4 py-2.5  align-middle">
+                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[13px]  font-[600]  font-semibold whitespace-nowrap ${statusBadgeClass(r.status)}`}>
                       {r.status}
                     </span>
                   </td>
-                  <td className="px-4 py-2.5 text-[#6B7280] align-middle hidden lg:table-cell text-[14px]">{r.expiry}</td>
+                  <td className="px-4 py-2.5 text-[#6B7280] align-middle hidden md:table-cell text-[14px]">{r.validUntil}</td>
                   <td className="px-4 py-2.5 text-gray-700 align-middle">
                     <ActionMenu
                       actions={[

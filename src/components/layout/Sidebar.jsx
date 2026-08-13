@@ -20,7 +20,9 @@ import reportsandanalytics from "../../assets/images/reportsandanalytics.svg";
 import systemsettings from "../../assets/images/systemsettings.svg";
 import school from "../../assets/images/schools.svg";
 import munclogo  from "../../assets/images/munclogo.svg";
-
+import order from "../../assets/images/Order.svg";
+import coupon from "../../assets/images/coupon.svg";
+import trial from "../../assets/images/trials.svg";
 import { MdSupportAgent, MdBarChart, MdSettings, MdPerson, MdMenu, MdClose, MdChevronLeft, MdChevronRight } from 'react-icons/md';
 /* ─── Navigation structure matching Figma exactly ─── */
 const NAV_SECTIONS = [
@@ -35,14 +37,19 @@ const NAV_SECTIONS = [
     items: [
       { label: 'Schools',               path: '/schools',               image:school},
       { label: 'Registration Requests', path: '/registration-requests', image:registrationrequest},
+            { label: 'Demo Requests', path: '/demo-requests', image:registrationrequest},
     ],
   },
   {
-    label: 'Subscription Management',
+    label: 'BILLING',
     items: [
       { label: 'Plans',         path: '/plans',         image: Plans      },
       { label: 'Subscriptions', path: '/subscriptions', image:Subscriptions },
+       { label: 'Coupons',      path: '/coupons',      image: coupon      },
       { label: 'Payments',      path: '/payments',      image: payments      },
+      { label: 'Orders',      path: '/orders',      image: order      },
+          { label: 'Trials',      path: '/trials',      image: trial      },
+
     ],
   },
   {

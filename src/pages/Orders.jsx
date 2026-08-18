@@ -30,6 +30,7 @@ export default function Orders() {
       Paid:    'bg-[#E8F9EE] text-[#21C45D]',
       Overdue: 'bg-[#FDECEC] text-[#EF4343]',
       Pending: 'bg-[#FDF5E6] text-[#F69F11]',
+      Failed:"bg-[#FDECEC] text-[#EF4343]"
     };
     return map[s] || 'bg-gray-100 text-gray-500';
   }
@@ -53,14 +54,13 @@ export default function Orders() {
       </div>
 
       {/* Filters row */}
-      <div className="flex flex-col sm:flex-row gap-3 flex-shrink-0 mb-1">
+      <div className="flex flex-col sm:flex-row gap-3 flex-shrink-0 mb-4">
         <div className="relative flex items-center flex-1">
           <span className="absolute left-2.5 text-[#696969] pointer-events-none"><SearchIcon /></span>
           <input
             type="text"
             placeholder="Search by school or Order..."
-            className="w-full pl-9 pr-3.5 py-2 text-[16px] border border-[#DDDDDD] rounded-[8px] outline-none bg-[#F3F4F6] text-[#696969] transition-colors"
-            value={search}
+         font-sans   className="w-full pl-9 pr-3.5 py-1.25 text-[16px] border border-[#DDDDDD] rounded-[8px] outline-none bg-[#F3F4F6] text-[#696969] transition-colors"
             onChange={(e) => { setSearch(e.target.value); setPage(1); }}
           />
         </div>

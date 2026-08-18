@@ -28,7 +28,7 @@ export default function ActionMenu({ actions = [], align = 'right' }) {
         type="button"
         onClick={() => setOpen((o) => !o)}
         title="Actions"
-        className="inline-flex items-center justify-center w-8 h-8  bg-white cursor-pointer text-[#0F1729] transition-colors"
+        className="inline-flex items-center justify-center cursor-pointer text-[#0F1729] transition-colors"
       >
         <DotsIcon />
       </button>

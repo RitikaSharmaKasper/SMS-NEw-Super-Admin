@@ -26,6 +26,11 @@ import DemoRequests from './pages/DemoRequests';
 import Coupon from './pages/Coupon';
 import Orders from './pages/Orders';
 import Trials from './pages/Trials';
+import Announcements from './pages/Announcements';
+import EmailLogs from './pages/EmailLogs';
+import FAQ from './pages/FAQ';
+import Blogs from "./pages/Blogs/Blogs";
+import CreateBlog from './pages/Blogs/CreateBlog';
 
 
 export default function App() {
@@ -43,6 +48,7 @@ export default function App() {
           <Route path="/plans/add-ons" element ={<AddOn/>}/>
           <Route path="/subscriptions"          element={<Subscriptions />} />
           <Route path="/payments"               element={<Payments />} />
+                  <Route path="/faq"               element={<FAQ />} />
           <Route path="/modules"                element={<Modules />} />
             <Route path="/trials"                element={<Trials />} />
           <Route path="/users"                  element={<Users />} />
@@ -59,6 +65,10 @@ export default function App() {
                 <Route path="/plans/add-ons/edit/:id" element={<EditAddOnPlan />} />
                      <Route path="/plans/add-ons/create" element={<CreateAddOnPlan />} />
                         <Route path="/orders" element={<Orders />} />
+                        <Route path="/announcement"  element={<Announcements/>}/>
+                        <Route path="/emaillogs" element={<EmailLogs/>}/>
+                        <Route path="/blogs" element={<Blogs/>}/>
+                        <Route path="/blogs/create" element={<CreateBlog/>}/>
           </Routes>
       </div>
     </div>

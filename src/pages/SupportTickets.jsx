@@ -49,7 +49,7 @@ export default function SupportTickets() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 flex-shrink-0 mb-2">
         <div>
-          <h1 className="text-[24px] font-[700] font-bold text-[#000000] leading-snug">Support Tickets</h1>
+          <h1 className="text-[24px] font-[700] font-bold text-[#000000] font-sans">Support Tickets</h1>
           <p className="text-[16px] text-[#6B7280] font-[400] -mt-[2px] font-sans">Manage support requests from schools</p>
         </div>
         {/* <button className="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-md border-none cursor-pointer transition-colors hover:bg-blue-700 whitespace-nowrap self-start sm:self-auto">
@@ -58,14 +58,13 @@ export default function SupportTickets() {
       </div>
 
       {/* Filters row */}
-      <div className="flex flex-col sm:flex-row gap-3 flex-shrink-0 mb-1">
+      <div className="flex flex-col sm:flex-row gap-3 flex-shrink-0 mb-4">
         <div className="relative flex items-center flex-1">
           <span className="absolute left-2.5 text-[#696969] pointer-events-none"><SearchIcon /></span>
           <input
             type="text"
             placeholder="Search tickets..."
-            className="w-full pl-9 pr-3.5 py-2 text-[16px] border border-[#DDDDDD] rounded-[8px] outline-none bg-[#F3F4F6] text-[#696969] transition-colors"
-            value={search}
+         font-sans   className="w-full pl-9 pr-3.5 py-1.25 text-[16px] border border-[#DDDDDD] rounded-[8px] outline-none bg-[#F3F4F6] text-[#696969] transition-colors"
             onChange={(e) => { setSearch(e.target.value); setPage(1); }}
           />
         </div>
@@ -139,6 +138,6 @@ export default function SupportTickets() {
 }
 
 function PlusIcon()   { return <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2.5" className="w-3.5 h-3.5"><path d="M8 3v10M3 8h10" /></svg>; }
-function SearchIcon() { return <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-4 h-4"><circle cx="6.5" cy="6.5" r="4.5" /><path d="M10 10l3.5 3.5" /></svg>; }
+function SearchIcon() { return <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-4 h-4"><circle cx="6.5" cy="6.5" r="4.5" /><path d="M10 10l3.5 3.5" /></svg>; }
 function EyeIcon()    { return <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-3.5 h-3.5"><path d="M1 8s2.5-5 7-5 7 5 7 5-2.5 5-7 5-7-5-7-5z" /><circle cx="8" cy="8" r="2" /></svg>; }
 function CheckIcon()  { return <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" className="w-3.5 h-3.5"><path d="M3 8l3.5 3.5L13 4" /></svg>; }

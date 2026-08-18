@@ -32,7 +32,7 @@ export default function FilterDropdown({ value, onChange, options = [], classNam
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="inline-flex items-center gap-1.5 px-3 py-2.5 min-w-[9rem] bg-[#F3F4F6] border border-[#DDDDDD] rounded-[8px] text-[14px] text-[#696969] cursor-pointer whitespace-nowrap select-none transition-colors "
+        className="inline-flex items-center gap-1.5 px-3 py-1.5 min-w-[9rem] bg-[#F3F4F6] border border-[#DDDDDD] rounded-[8px] text-[14px] text-[#696969] cursor-pointer whitespace-nowrap select-none transition-colors "
       >
         <span className="truncate">{value}</span>
         <ChevronIcon open={open} />

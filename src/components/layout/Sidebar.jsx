@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 
 import auditlogs from "../../assets/images/auditlogs.svg";
 
-import dashboard from "../../assets/images/dashboard.svg";
+import dashboard from "../../assets/images/Dashboard.svg";
 
 import registrationrequest from "../../assets/images/registrationrequest.svg";
 import { FaListAlt } from 'react-icons/fa';
@@ -22,7 +22,15 @@ import school from "../../assets/images/schools.svg";
 import munclogo  from "../../assets/images/munclogo.svg";
 import order from "../../assets/images/Order.svg";
 import coupon from "../../assets/images/coupon.svg";
+import emaillogs from "../../assets/images/Email_Logs.svg";
+import Export_Component from "../../assets/images/Export_Components.svg";
 import trial from "../../assets/images/trials.svg";
+import faq from "../../assets/images/FAQ.svg";
+import testimonials from "../../assets/images/Testimonials.svg";
+import blogs from "../../assets/images/Blogs.svg";
+import aboutus from "../../assets/images/Aboutus.svg";
+
+
 import { MdSupportAgent, MdBarChart, MdSettings, MdPerson, MdMenu, MdClose, MdChevronLeft, MdChevronRight } from 'react-icons/md';
 /* ─── Navigation structure matching Figma exactly ─── */
 const NAV_SECTIONS = [
@@ -53,17 +61,33 @@ const NAV_SECTIONS = [
     ],
   },
   {
-    label: 'Platform Control',
+    label: 'Operations',
     items: [
       { label: 'Modules',       path: '/modules',      image: modules        },
+      { label: 'Announcement',         path: '/announcement',         image: Export_Component          },
+      // { label: 'Notifications', path: '/notifications', image: notification },
+          
       { label: 'Users',         path: '/users',         image: users           },
       { label: 'Notifications', path: '/notifications', image: notification },
+       { label: 'Email Logs',       path: '/emaillogs',      image: emaillogs        },
     ],
   },
   {
     label: 'Support',
     items: [
       { label: 'Support Tickets', path: '/support-tickets', image: supporttickets},
+    ],
+  },
+
+
+    {
+    label: 'Website',
+    items: [
+      { label: 'FAQ',         path: '/faq',         image: faq     },
+      { label: 'Blogs', path: '/blogs', image: blogs },
+       { label: 'Testimonials',      path: '/testimonials',      image: testimonials     },
+      { label: 'About Us',      path: '/aboutus',      image: aboutus      },
+  
     ],
   },
   {

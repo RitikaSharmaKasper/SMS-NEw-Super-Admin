@@ -55,14 +55,13 @@ export default function RegistrationRequests() {
       </div>
 
       {/* Filters row */}
-      <div className="flex flex-col sm:flex-row gap-3 flex-shrink-0 mb-1">
+      <div className="flex flex-col sm:flex-row gap-3 flex-shrink-0 mb-4">
         <div className="relative flex items-center flex-1">
           <span className="absolute left-2.5 text-[#696969] pointer-events-none"><SearchIcon /></span>
           <input
             type="text"
             placeholder="Search requests..."
-            className="w-full pl-9 pr-3.5 py-2 text-[16px] border border-[#DDDDDD] rounded-[8px] outline-none bg-[#F3F4F6] text-[#696969] transition-colors"
-            value={search}
+         font-sans   className="w-full pl-9 pr-3.5 py-1.25 text-[16px] border border-[#DDDDDD] rounded-[8px] outline-none bg-[#F3F4F6] text-[#696969] transition-colors"
             onChange={(e) => { setSearch(e.target.value); setPage(1); }}
           />
         </div>
@@ -147,7 +146,7 @@ export default function RegistrationRequests() {
   );
 }
 
-function SearchIcon() { return <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-4 h-4"><circle cx="6.5" cy="6.5" r="4.5" /><path d="M10 10l3.5 3.5" /></svg>; }
+function SearchIcon() { return <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-4 h-4"><circle cx="6.5" cy="6.5" r="4.5" /><path d="M10 10l3.5 3.5" /></svg>; }
 function EyeIcon()    { return <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-3.5 h-3.5"><path d="M1 8s2.5-5 7-5 7 5 7 5-2.5 5-7 5-7-5-7-5z" /><circle cx="8" cy="8" r="2" /></svg>; }
 function CheckIcon()  { return <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" className="w-3.5 h-3.5"><path d="M3 8l3.5 3.5L13 4" /></svg>; }
 function CrossIcon()  { return <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" className="w-3.5 h-3.5"><path d="M4 4l8 8M12 4l-8 8" /></svg>; }

@@ -1,0 +1,73 @@
+
+export const announcements = [
+  {
+    id: 1,
+    icon: 'release',
+    title: 'Two-Factor Authentication Available',
+    description: 'Two-Factor Authentication Available',
+    status: 'Active',
+    type: 'Release',
+    audience: 'All tenants',
+    inAppMeta: '5 dismissed',
+    actionLabel: 'Setup Now',
+    publishDate: '29 Jul 2026, 12:26 pm',
+    endDate: '29 Jul 2026, 12:26 pm',
+  },
+  {
+    id: 2,
+    icon: 'warning',
+    title: 'Password Reset Option',
+    description: 'Password Reset Available',
+    status: 'Scheduled',
+    type: 'Warning',
+    audience: 'All users',
+    inAppMeta: '8 completed',
+    actionLabel: 'Reset Password',
+    publishDate: '15 Aug 2026, 10:15 am',
+    endDate: '15 Aug 2026, 10:15 am',
+  },
+  {
+    id: 3,
+    icon: 'success',
+    title: 'User Role Management',
+    description: 'Manage User Roles',
+    status: 'Expired',
+    type: 'Success',
+    audience: 'Admins only',
+    inAppMeta: '3 modifications',
+    actionLabel: 'Manage Roles',
+    publishDate: '10 Sep 2026, 1:45 pm',
+    endDate: '10 Sep 2026, 1:45 pm',
+  },
+  {
+    id: 4,
+    icon: 'info',
+    title: 'Data Encryption Feature',
+    description: 'Data Encryption Enabled',
+    status: 'Active',
+    type: 'Info',
+    audience: 'All tenants',
+    inAppMeta: '12 secured',
+    actionLabel: 'Enable Encryption',
+    publishDate: '20 Oct 2026, 2:30 pm',
+    endDate: '20 Oct 2026, 2:30 pm',
+  },
+  
+  {
+    id: 5,
+    icon: 'maintenance',
+    title: 'Data Encryption Feature',
+    description: 'Data Encryption Enabled',
+    status: 'Active',
+    type: 'Maintenance',
+    audience: 'All tenants',
+    inAppMeta: '12 secured',
+    actionLabel: 'Enable Encryption',
+    publishDate: '20 Oct 2026, 2:30 pm',
+    endDate: '20 Oct 2026, 2:30 pm',
+  },
+ 
+];
+ 
+
+

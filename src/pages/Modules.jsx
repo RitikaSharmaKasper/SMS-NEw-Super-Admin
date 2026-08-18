@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { modules as initialModules } from '../data/dummyData';
 import FilterDropdown from '../components/layout/FilterDropdown';
 import ActionMenu from '../components/layout/ActionMenu';
@@ -6,6 +6,23 @@ import Pagination from '../components/layout/Pagination';
 
 const STATUS_OPTIONS = ['All Status', 'Active', 'Inactive'];
 const PLAN_OPTIONS   = ['All Plans', 'Basic', 'Standard', 'Premium'];
+// Custom debounce hook
+function useDebounce(value, delay = 300) {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
+}
+
 
 export default function Modules() {
   const [moduleList, setModuleList]     = useState(initialModules);
@@ -14,6 +31,20 @@ export default function Modules() {
   const [planFilter, setPlanFilter]     = useState('All Plans');
   const [page, setPage]                 = useState(1);
   const [perPage, setPerPage]           = useState(10);
+
+
+  // Debounce search input
+  const debouncedSearch = useDebounce(search, 300);
+
+  // Reset page when filters change
+  useEffect(() => {
+    setPage(1);
+  }, [debouncedSearch, statusFilter, planFilter]);
+
+
+
+
+
 
   const filtered = moduleList.filter((m) => {
     const q = search.trim().toLowerCase();
@@ -60,14 +91,13 @@ export default function Modules() {
       </div>
 
       {/* Filters row */}
-      <div className="flex flex-col sm:flex-row gap-3 flex-shrink-0 mb-1">
+      <div className="flex flex-col sm:flex-row gap-3 flex-shrink-0 mb-4">
         <div className="relative flex items-center flex-1">
           <span className="absolute left-2.5 text-[#696969] pointer-events-none"><SearchIcon /></span>
           <input
             type="text"
             placeholder="Search modules..."
-            className="w-full pl-9 pr-3.5 py-2 text-[16px] border border-[#DDDDDD] rounded-[8px] outline-none bg-[#F3F4F6] text-[#696969] transition-colors"
-            value={search}
+         font-sans   className="w-full pl-9 pr-3.5 py-1.25 text-[16px] border border-[#DDDDDD] rounded-[8px] outline-none bg-[#F3F4F6] text-[#696969] transition-colors"
             onChange={(e) => { setSearch(e.target.value); setPage(1); }}
           />
         </div>

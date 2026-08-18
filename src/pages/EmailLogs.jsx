@@ -1,20 +1,21 @@
 import { useState } from 'react';
-import { trials } from '../data/dummyData';
+import {  emailLogs } from '../data/emaildata';
 import FilterDropdown from '../components/layout/FilterDropdown';
 import ActionMenu from '../components/layout/ActionMenu';
 import Pagination from '../components/layout/Pagination';
+import { RotateCw } from 'lucide-react';
+import retry from "../assets/images/Retry.svg";
+const STATUS_OPTIONS = ['All Status', 'Sent','Failed'];
 
-const STATUS_OPTIONS = ['All Status', 'Paid', 'Pending', 'Overdue'];
-const METHOD_OPTIONS = ['All Methods', 'Credit Card', 'Bank Transfer'];
 
-export default function Trials() {
+export default function EmailLogs() {
   const [search, setSearch]       = useState('');
   const [statusFilter, setStatus] = useState('All Status');
   const [methodFilter, setMethod] = useState('All Methods');
   const [page, setPage]           = useState(1);
   const [perPage, setPerPage]     = useState(10);
 
-  const filtered = trials.filter((p) => {
+  const filtered = emailLogs.filter((p) => {
     const q = search.trim().toLowerCase();
     const matchSearch = !q || p.school.toLowerCase().includes(q) || p.txnId.toLowerCase().includes(q);
     const matchStatus = statusFilter === 'All Status'  || p.status === statusFilter;
@@ -27,11 +28,8 @@ export default function Trials() {
 
     function statusBadgeClass(s) {
     const map = {
-      Active:    'bg-[#E8F9EE] text-[#21C45D]',
-      Trial:     'bg-[#E6F5FC] text-[#59A2E7]',
-      Suspended: 'bg-[#FDF5E6] text-[#F69F11]',
-      Expired:   'bg-[#FDECEC] text-[#EF4343]',
-      Inactive:  'bg-gray-100 text-gray-500',
+     Sent:    'bg-[#E8F9EE] text-[#21C45D]',
+    
       Failed:  'bg-[#FDECEC] text-[#EF4343]',         
     };
     return map[s] || 'bg-gray-100 text-gray-500';
@@ -47,8 +45,8 @@ export default function Trials() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 flex-shrink-0 mb-2">
         <div>
-          <h1 className="text-[24px] font-[700] font-bold text-[#000000] leading-snug">Trial Management</h1>
-          <p className="text-[16px] text-[#6B7280] font-[400] -mt-[2px] font-sans">Track and manage all subscription orders</p>
+          <h1 className="text-[24px] font-[700] font-bold text-[#000000]  font-sans">Email Deliverability</h1>
+          <p className="text-[16px] text-[#6B7280] font-[400] -mt-[2px] font-sans">Every platform email — delivery status, failures & resend</p>
         </div>
         {/* <button className="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-md border-none cursor-pointer transition-colors hover:bg-blue-700 whitespace-nowrap self-start sm:self-auto">
           <DownloadIcon /> Export Payments
@@ -67,7 +65,7 @@ export default function Trials() {
           />
         </div>
         <FilterDropdown value={statusFilter} onChange={(v) => { setStatus(v); setPage(1); }} options={STATUS_OPTIONS} />
-        <FilterDropdown value={methodFilter} onChange={(v) => { setMethod(v); setPage(1); }} options={METHOD_OPTIONS} />
+       
       </div>
 
       {/* Table card */}
@@ -76,16 +74,15 @@ export default function Trials() {
           <table className="w-full border-collapse text-sm align-top">
             <thead className="bg-[#FFFFFF]">
               <tr>
-                <th className="px-5 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">School</th>
-                <th className="px-3 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">Plan</th>
-                <th className="px-5 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] sm:table-cell">Start Date</th>
-                <th className="px-5 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">End Date</th>
+                <th className="pl-4  py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">Recipient</th>
+                <th className="pr-3 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">Subject</th>
+                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] sm:table-cell">Status</th>
+                <th className="px-7 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">Sent</th>
 
 
-                <th className="px-6 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] lg:table-cell">Days Left</th>
-                                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">Status</th>
-                {/* <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden xl:table-cell">Invoice</th> */}
-                <th className="px-6 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">Actions</th>
+                <th className="px-3 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] lg:table-cell">Error</th>
+                                <th className="px-1 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">Action</th>
+               
               </tr>
             </thead>
             <tbody>
@@ -96,29 +93,50 @@ export default function Trials() {
               ) : paginated.map((p) => (
                 <tr key={p.id} className="border-b border-[#F2F3F5] last:border-b-0  transition-colors">
 
-<td className="px-5 py-2.5 text-gray-700 align-middle hidden lg:table-cell">
-                    <div className="min-w-0">
-                      <p className="font-semibold text-[#0F1729] text-[14px] truncate max-w-[200px]">{p.school}</p>
-                      <p className="text-[14px] text-[#6B7280] truncate max-w-[200px]">{p.email}</p>
-                    </div>
-                  </td>
+
              
-                                    <td className="px-1 py-6 align-middle">
+                                    {/* <td className="px-1 py-6 align-middle">
                     <span  className={` inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium whitespace-nowrap ${planBadgeClass(p.plan)}`}>{p.plan}
                     </span>
-                  </td> 
+                  </td>  */}
                   
-                  <td className="px-5 py-6 font-normal text-[#1C1C1C] text-[14px] align-middle"> {p.startDate}</td>
-                       <td className="px-4 py-6 font-normal text-[#0F1729] text-[14px] align-middle"> ₹{p.endDate}</td>
-                        <td className="px-7 py-6 font-normal font-[400] text-[#1C1C1C] text-[14px] align-middle"> {p.daysLeft}d</td>
+                  <td className="px-4 py-5 font-semibold text-[#1C1C1C] font-[600] text-[14px] align-middle"> {p.recipient}</td>
+                      <td className="pr-0 py-5 font-normal text-[#0F1729] text-[14px] align-middle">
+  <div className="truncate max-w-[360px]">
+    {p.subject}
+  </div>
+</td>  
                  
-                   <td className="px-3 py-6 align-middle">
+                   <td className="px-3 py-5 align-middle">
                     <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium whitespace-nowrap ${statusBadgeClass(p.status)}`}>
                       {p.status}
                     </span>
                   </td>
+
+<td className="px-5 py-5 font-normal text-[#0F1729] text-[14px] align-middle"> {p.sentAt}</td>
+<td className="px-2 py-5 font-normal text-[#B60000] font-[400] text-[14px] align-middle">
+  <div className="truncate max-w-[370px]">
+    {p.error||"-"}
+  </div>
+</td>
+
+
+
+<td className="px-0 pr-4 py-5 font-normal text-[#0F1729] text-[14px] align-middle">
+  <div className="flex items-center justify-start gap-1.25">
+  
+    <img
+  src={retry}
+      onClick={() => handleRetry(p)}
+      className="inline-flex items-center "
+    >
+  
+    </img>
+   <p className="text-[#2675F4] font-semibold font-[600] text-[14px]"> Retry</p>
+  </div>
+</td>
                  
-            <td className="px-5 py-2.5 text-gray-700 align-middle">
+            {/* <td className="px-3 py-2.5 text-gray-700 align-middle">
                                 <div className="flex items-center gap-1">
                                   <ActionMenu
                                     actions={[
@@ -131,15 +149,9 @@ export default function Trials() {
                                     align="right"
                                   />
                                 </div>
-                              </td>
+                              </td> */}
                 
-                    {/* <ActionMenu
-                      actions={[
-                        { label: 'Download Invoice', icon: <DownloadIcon />, onClick: () => {} },
-                        { label: 'View Receipt',     icon: <EyeIcon />,      onClick: () => {} },
-                      ]}
-                      align="right"
-                    /> */}
+               
 
 
                 </tr>
@@ -169,7 +181,7 @@ function DownloadIcon() { return <svg viewBox="0 0 16 16" fill="none" stroke="cu
    
 
 function PlusIcon()    { return <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2.5" className="w-3.5 h-3.5"><path d="M8 3v10M3 8h10" /></svg>; }
-function SearchIcon()  { return <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-4 h-4"><circle cx="6.5" cy="6.5" r="4.5" /><path d="M10 10l3.5 3.5" /></svg>; }
+function SearchIcon()  { return <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-4 h-4"><circle cx="6.5" cy="6.5" r="4.5" /><path d="M10 10l3.5 3.5" /></svg>; }
 function EyeIcon()     { return <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-3.5 h-3.5"><path d="M1 8s2.5-5 7-5 7 5 7 5-2.5 5-7 5-7-5-7-5z" /><circle cx="8" cy="8" r="2" /></svg>; }
 function UpgradeIcon() { return <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-3.5 h-3.5"><circle cx="8" cy="8" r="6.5" /><path d="M8 11V5M5.5 7.5L8 5l2.5 2.5" /></svg>; }
 function RenewIcon()   { return <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-3.5 h-3.5"><path d="M13 8A5 5 0 113 8" /><path d="M13 5v3h-3" /></svg>; }

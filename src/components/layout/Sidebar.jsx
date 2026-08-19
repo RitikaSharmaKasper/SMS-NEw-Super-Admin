@@ -274,18 +274,13 @@ export default function Sidebar() {
 
 
 {/* ── Collapse Toggle Button (absolutely positioned on the right edge) ── */}
-<div className={`relative flex items-center ${collapsed ? 'justify-center' : 'justify-end'} py-3 flex-shrink-0`}>
+<div className="relative z-10 flex-shrink-0">
   <button
     onClick={() => setCollapsed(v => !v)}
-    className={`
-      absolute ${collapsed ? 'left-1/2 -translate-x-1/2' : '-right-3 top-1/2 -translate-y-1/2'}
-      w-10 h-10 rounded-full bg-[#0F2C46] text-white border border-white/10 
-      flex items-center justify-center text-[#0F1729] hover:text-white hover:bg-[#0F2C46] 
-      transition-all duration-300 shadow-lg
-    `}
+    className="absolute -right-3 top-2 w-8 h-8 rounded-full bg-[#0F2C46] text-white border border-white/20 flex items-center justify-center cursor-pointer shadow-md hover:bg-[#133A5C] transition-all"
     aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
   >
-    {collapsed ? <MdChevronRight size={22} /> : <MdChevronLeft size={22} />}
+    {collapsed ? <MdChevronRight size={19} /> : <MdChevronLeft size={19} />}
   </button>
 </div>
 

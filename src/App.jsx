@@ -31,6 +31,9 @@ import EmailLogs from './pages/EmailLogs';
 import FAQ from './pages/FAQ';
 import Blogs from "./pages/Blogs/Blogs";
 import CreateBlog from './pages/Blogs/CreateBlog';
+import Testimonials from './pages/Testimonial/Testimonials';
+import CreateTestimonial from './pages/Testimonial/CreateTestimonial';
+import AboutUs from './pages/AboutUs';
 
 
 export default function App() {
@@ -69,6 +72,9 @@ export default function App() {
                         <Route path="/emaillogs" element={<EmailLogs/>}/>
                         <Route path="/blogs" element={<Blogs/>}/>
                         <Route path="/blogs/create" element={<CreateBlog/>}/>
+                        <Route path="/testimonials" element={<Testimonials />} />
+                        <Route path="/testimonials/create" element={<CreateTestimonial />} />
+                        <Route path="/aboutus" element={<AboutUs />} />
           </Routes>
       </div>
     </div>

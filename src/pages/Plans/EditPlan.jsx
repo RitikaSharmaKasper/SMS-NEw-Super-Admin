@@ -85,7 +85,35 @@ export default function EditPlan() {
 
   const update = (key, value) => {
     const finalValue = numericFields.includes(key) ? sanitizeNumeric(value) : value;
-    setForm((f) => ({ ...f, [key]: finalValue }));
+
+    setForm((f) => {
+      const next = { ...f, [key]: finalValue };
+
+      const m = parseFloat(next.monthlyPrice);
+      const y = parseFloat(next.yearlyPrice);
+
+      if (!isNaN(m) && m > 0 && !isNaN(y) && y > 0) {
+        const fullYear = m * 12;
+        if (y < fullYear) {
+          const discountAmt = fullYear - y;
+          const pct = Math.round((discountAmt / fullYear) * 100);
+          next.yearlyDiscountDisplay = `Save ${pct}%`;
+          next.hasDiscount = true;
+          next.yearlyDiscount = String(discountAmt);
+        } else {
+          next.yearlyDiscountDisplay = 'No discount';
+          next.hasDiscount = false;
+          next.yearlyDiscount = '0';
+        }
+      } else {
+        next.yearlyDiscountDisplay = 'No discount';
+        next.hasDiscount = false;
+        next.yearlyDiscount = '';
+      }
+
+      return next;
+    });
+
     // clear this field's error as soon as the user edits it
     setErrors((prev) => {
       if (!prev[key]) return prev;
@@ -172,26 +200,34 @@ useEffect(() => {
     const payload = { ...form, features };
     console.log('Update plan payload:', payload);
 
-    // persist so the Plans list reflects the change (no backend available in this codebase)
-    const updatedPlan = {
-      id,
-      name: form.planName,
-      price: Number(form.monthlyPrice) || 0,
-      yearlyPrice: Number(form.yearlyPrice) || 0,
-      students: unlimited.studentLimit ? 'Unlimited' : (form.studentLimit || '0'),
-      teachers: unlimited.userLimit ? 'Unlimited' : (form.userLimit || '0'),
-      modules: features.filter((f) => f.trim() !== ''),
-      popular: false,
-      formData: form,
-      featuresData: features,
-      unlimitedData: unlimited,
-    };
-
     try {
       const existing = JSON.parse(localStorage.getItem('customPlans') || '[]');
-      const updatedList = existing.map((p) =>
-        String(p.id) === String(id) ? { ...p, ...updatedPlan } : p
-      );
+      const existsInCustom = existing.some((p) => String(p.id) === String(id));
+
+      // Preserve the original 'popular' flag so editing never strips it
+      const originalCustom = existing.find((p) => String(p.id) === String(id));
+      const staticMatch = plansData.find((p) => String(p.id) === String(id));
+      const preservedPopular = originalCustom?.popular ?? staticMatch?.popular ?? false;
+
+      const updatedPlan = {
+        id: String(id), // normalise to string so id comparisons are always reliable
+        name: form.planName,
+        price: Number(form.monthlyPrice) || 0,
+        yearlyPrice: Number(form.yearlyPrice) || 0,
+        students: unlimited.studentLimit ? 'Unlimited' : (form.studentLimit || '0'),
+        teachers: unlimited.userLimit ? 'Unlimited' : (form.userLimit || '0'),
+        modules: features.filter((f) => f.trim() !== ''),
+        popular: preservedPopular, // preserve — never hard-code false
+        formData: form,
+        featuresData: features,
+        unlimitedData: unlimited,
+      };
+
+      const updatedList = existsInCustom
+        // custom plan: replace in-place
+        ? existing.map((p) => String(p.id) === String(id) ? { ...p, ...updatedPlan } : p)
+        // static plan edited for the first time: append override so Plans page uses this instead
+        : [...existing, updatedPlan];
       localStorage.setItem('customPlans', JSON.stringify(updatedList));
     } catch (err) {
       console.error('Failed to update plan in localStorage', err);
@@ -372,7 +408,31 @@ const toggleUnlimited = (key) => {
               </div>
               <div>
                 <label className={labelClass}>Yearly Discount</label>
-                <input type="text" placeholder="₹ 0" className={inputClass} value={form.yearlyDiscount} onChange={(e) => update('yearlyDiscount', e.target.value)} />
+                <div className="relative flex items-center">
+                  <input
+                    type="text"
+                    placeholder=""
+                    className={`${inputClass} cursor-default`}
+                    value=""
+                    readOnly
+                  />
+                  <div className="absolute left-3.5 flex items-center gap-1.5 pointer-events-none">
+                    {form.hasDiscount ? (
+                      <>
+                        <svg viewBox="0 0 16 16" fill="none" stroke="#21C45D" strokeWidth="2" className="w-4 h-4">
+                          <path d="M13 11V3M13 3H5M13 3L3 13" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                        <span className="text-[15px] font-[500] text-[#21C45D]">
+                          {form.yearlyDiscountDisplay}
+                        </span>
+                      </>
+                    ) : (
+                      <span className="text-[15px] font-[500] text-[#9CA3AF]">
+                        No discount
+                      </span>
+                    )}
+                  </div>
+                </div>
               </div>
               <div>
                 <label className={labelClass}>Billing Options</label>
@@ -542,7 +602,7 @@ const toggleUnlimited = (key) => {
     }`}
   >
     <span
-      className="absolute top-0.25 left-0.5 w-[14px] h-[14px] rounded-full bg-white transition-transform"
+      className="absolute top-0.5 left-0.5 w-[14px] h-[14px] rounded-full bg-white transition-transform"
       style={{ transform: unlimited[key] ? 'translateX(18px)' : 'translateX(0)' }}
     />
   </button>

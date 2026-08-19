@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { addOnsData } from "../../data/Plans";
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { addOnsData, useraddOnsData } from "../../data/Plans";
 
 const inputClass =
   "w-full px-3.5 py-3 text-[16px] border border-[#E6E6E6] rounded-[12px] outline-none bg-[#FFFFFF] text-[#696969] placeholder-[#696969] transition-colors";
@@ -21,8 +21,11 @@ const sanitizeNumeric = (value) => {
 export default function EditAddOnPlan() {
   const navigate = useNavigate();
   const { id } = useParams();
+  const [searchParams] = useSearchParams();
+  const isUserAddOn = searchParams.get('type') === 'user';
 
   const [form, setForm] = useState({
+    name: '',
     storage: '',
     storageType: '',
     currency: 'INR',
@@ -44,36 +47,59 @@ export default function EditAddOnPlan() {
 
   useEffect(() => {
     try {
-      const customAddOns = JSON.parse(localStorage.getItem('customAddOns') || '[]');
-      const customMatch = customAddOns.find((a) => String(a.id) === String(id));
+      if (isUserAddOn) {
+        const customUserAddOns = JSON.parse(localStorage.getItem('customuserAddOns') || '[]');
+        const customMatch = customUserAddOns.find((a) => String(a.id) === String(id));
+        if (customMatch) {
+          if (customMatch.formData) setForm(customMatch.formData);
+          else setForm((f) => ({ ...f, name: customMatch.name || '', price: String(customMatch.price ?? '') }));
+          return;
+        }
 
-      if (customMatch) {
-        if (customMatch.formData) setForm(customMatch.formData);
-        return;
-      }
+        const staticMatch = useraddOnsData.find((a) => String(a.id) === String(id));
+        if (staticMatch) {
+          setForm((f) => ({
+            ...f,
+            name: staticMatch.name || '',
+            currency: 'INR',
+            price: String(staticMatch.price ?? ''),
+          }));
+        }
+      } else {
+        const customAddOns = JSON.parse(localStorage.getItem('customAddOns') || '[]');
+        const customMatch = customAddOns.find((a) => String(a.id) === String(id));
 
-      // fall back to the static seed data (size like "50 GB" -> split into storage + storageType)
-      const staticMatch = addOnsData.find((a) => String(a.id) === String(id));
-      if (staticMatch) {
-        const [storage, storageType] = String(staticMatch.size || '').split(' ');
-        setForm((f) => ({
-          ...f,
-          storage: storage || '',
-          storageType: storageType || 'GB',
-          currency: 'INR',
-          price: String(staticMatch.price ?? ''),
-        }));
+        if (customMatch) {
+          if (customMatch.formData) setForm(customMatch.formData);
+          return;
+        }
+
+        const staticMatch = addOnsData.find((a) => String(a.id) === String(id));
+        if (staticMatch) {
+          const [storage, storageType] = String(staticMatch.size || '').split(' ');
+          setForm((f) => ({
+            ...f,
+            storage: storage || '',
+            storageType: storageType || 'GB',
+            currency: 'INR',
+            price: String(staticMatch.price ?? ''),
+          }));
+        }
       }
     } catch (err) {
       console.error('Failed to load add-on for editing', err);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id]);
+  }, [id, isUserAddOn]);
 
   const validateForm = () => {
     const newErrors = {};
-    if (!form.storage.trim()) newErrors.storage = 'Storage is required';
-    if (!form.storageType) newErrors.storageType = 'Select a storage type';
+    if (isUserAddOn) {
+      if (!form.name.trim()) newErrors.name = 'Name is required';
+    } else {
+      if (!form.storage.trim()) newErrors.storage = 'Storage is required';
+      if (!form.storageType) newErrors.storageType = 'Select a storage type';
+    }
     if (!form.price.trim()) newErrors.price = 'Price is required';
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -82,29 +108,44 @@ export default function EditAddOnPlan() {
   const handleUpdatePlan = () => {
     if (!validateForm()) return;
 
-    const payload = { ...form };
-    console.log('Update add-on payload:', payload);
+    if (isUserAddOn) {
+      const updatedUserAddOn = {
+        id,
+        name: form.name,
+        price: Number(form.price) || 0,
+        formData: form,
+      };
 
-    const updatedAddOn = {
-      id,
-      size: `${form.storage} ${form.storageType}`,
-      price: Number(form.price) || 0,
-      formData: form,
-    };
+      try {
+        const existing = JSON.parse(localStorage.getItem('customuserAddOns') || '[]');
+        const alreadyExists = existing.some((a) => String(a.id) === String(id));
+        const updatedList = alreadyExists
+          ? existing.map((a) => (String(a.id) === String(id) ? { ...a, ...updatedUserAddOn } : a))
+          : [...existing, updatedUserAddOn];
 
-    try {
-      const existing = JSON.parse(localStorage.getItem('customAddOns') || '[]');
-      const alreadyExists = existing.some((a) => String(a.id) === String(id));
+        localStorage.setItem('customuserAddOns', JSON.stringify(updatedList));
+      } catch (err) {
+        console.error('Failed to update user add-on in localStorage', err);
+      }
+    } else {
+      const updatedAddOn = {
+        id,
+        size: `${form.storage} ${form.storageType}`,
+        price: Number(form.price) || 0,
+        formData: form,
+      };
 
-      // upsert: update if this add-on was already saved before, otherwise add it
-      // (covers editing a static/dummy add-on for the first time)
-      const updatedList = alreadyExists
-        ? existing.map((a) => (String(a.id) === String(id) ? { ...a, ...updatedAddOn } : a))
-        : [...existing, updatedAddOn];
+      try {
+        const existing = JSON.parse(localStorage.getItem('customAddOns') || '[]');
+        const alreadyExists = existing.some((a) => String(a.id) === String(id));
+        const updatedList = alreadyExists
+          ? existing.map((a) => (String(a.id) === String(id) ? { ...a, ...updatedAddOn } : a))
+          : [...existing, updatedAddOn];
 
-      localStorage.setItem('customAddOns', JSON.stringify(updatedList));
-    } catch (err) {
-      console.error('Failed to update add-on in localStorage', err);
+        localStorage.setItem('customAddOns', JSON.stringify(updatedList));
+      } catch (err) {
+        console.error('Failed to update add-on in localStorage', err);
+      }
     }
 
     navigate('/plans/add-ons');
@@ -134,30 +175,53 @@ export default function EditAddOnPlan() {
             <h3 className={sectionTitleClass}>Plan Information</h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-4">
-              <div>
-                <label className={labelClass}>Storage</label>
-                <input
-                  type="text"
-                  placeholder="e.g., beginner, enterprise"
-                  className={inputClass}
-                  value={form.storage}
-                  onChange={(e) => update('storage', e.target.value)}
-                />
-                {errors.storage && <p className="text-[12px] text-[#EF4444] mt-1">{errors.storage}</p>}
-              </div>
-              <div>
-                <label className={labelClass}>Storage Type</label>
-                <select
-                  className={inputClass}
-                  value={form.storageType}
-                  onChange={(e) => update('storageType', e.target.value)}
-                >
-                  <option value="">GB/MB</option>
-                  <option value="GB">GB</option>
-                  <option value="MB">MB</option>
-                </select>
-                {errors.storageType && <p className="text-[12px] text-[#EF4444] mt-1">{errors.storageType}</p>}
-              </div>
+              {isUserAddOn ? (
+                <div>
+                  <label className={labelClass}> User Type / Name </label>
+                  <input
+                    type="text"
+                    placeholder="e.g. Student, Staff"
+                    className={inputClass}
+                    value={form.name}
+                    onChange={(e) => update('name', e.target.value)}
+                  />
+                  {errors.name && <p className="text-[12px] text-[#EF4444] mt-1">{errors.name}</p>}
+                </div>
+              ) : (
+                <>
+                  <div>
+                    <label className={labelClass}>Storage</label>
+                    <input
+                      type="text"
+                      placeholder="e.g., beginner, enterprise"
+                      className={inputClass}
+                      value={form.storage}
+                      onChange={(e) => update('storage', e.target.value)}
+                    />
+                    {errors.storage && <p className="text-[12px] text-[#EF4444] mt-1">{errors.storage}</p>}
+                  </div>
+                  <div>
+                    <label className={labelClass}>Storage Type</label>
+                    <select
+                      className={inputClass}
+                      value={form.storageType}
+                      onChange={(e) => update('storageType', e.target.value)}
+                    >
+                    
+                      <option value="GB">GB</option>
+                      <option value="MB">MB</option>
+                    </select>
+                    {errors.storageType && <p className="text-[12px] text-[#EF4444] mt-1">{errors.storageType}</p>}
+                  </div>
+                </>
+              )}
+
+
+
+
+
+
+
               <div>
                 <label className={labelClass}>Currency</label>
                 <select
@@ -169,6 +233,28 @@ export default function EditAddOnPlan() {
                   <option value="USD">USD</option>
                 </select>
               </div>
+
+
+
+
+<div className={isUserAddOn ? "w-full col-span-2" : "col-span-1"}>
+  <label className={labelClass}>Price</label>
+  <input
+    type="text"
+    placeholder="₹ 0"
+    className={`${inputClass} ${isUserAddOn ? "w-full" : ""}`}
+    value={form.price}
+    onChange={(e) => update('price', e.target.value)}
+  />
+  {errors.price && <p className="text-[12px] text-[#EF4444] mt-1">{errors.price}</p>}
+</div>
+
+
+
+
+
+
+{/*              
               <div>
                 <label className={labelClass}>Price</label>
                 <input
@@ -179,7 +265,9 @@ export default function EditAddOnPlan() {
                   onChange={(e) => update('price', e.target.value)}
                 />
                 {errors.price && <p className="text-[12px] text-[#EF4444] mt-1">{errors.price}</p>}
-              </div>
+              </div> */}
+
+
             </div>
           </section>
         </div>

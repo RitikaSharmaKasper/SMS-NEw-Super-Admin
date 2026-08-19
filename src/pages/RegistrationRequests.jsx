@@ -77,11 +77,11 @@ export default function RegistrationRequests() {
               <tr>
                 <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">REQ ID</th>
                 <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">School Name</th>
-                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden lg:table-cell">Admin</th>
-                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden sm:table-cell">Plan</th>
-                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden md:table-cell">Date</th>
+                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]  lg:table-cell">Admin</th>
+                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]  sm:table-cell">Plan</th>
+                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]  md:table-cell">Date</th>
                 <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">Status</th>
-                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden lg:table-cell">Expiry</th>
+                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]  lg:table-cell">Expiry</th>
                 <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">Action</th>
               </tr>
             </thead>
@@ -96,24 +96,24 @@ export default function RegistrationRequests() {
                   <td className="px-4 py-2.5 text-gray-700 align-middle">
                     <p className="font-semibold text-[#0F1729] text-[14px] truncate max-w-[160px]">{r.schoolName}</p>
                   </td>
-                  <td className="px-4 py-2.5 text-gray-700 align-middle hidden lg:table-cell">
+                  <td className="px-4 py-2.5 text-gray-700 align-middle lg:table-cell">
                     <div className="min-w-0">
                       <p className="font-semibold text-[#0F1729] text-[14px] truncate max-w-[140px]">{r.adminName}</p>
                       <p className="text-[14px] text-[#6B7280] truncate max-w-[140px]">{r.adminEmail}</p>
                     </div>
                   </td>
-                  <td className="px-4 py-2.5 align-middle hidden sm:table-cell">
+                  <td className="px-4 py-2.5 align-middle  sm:table-cell">
                     <span className={`inline-flex items-center px-3 py-0.5 rounded-full text-[13px] font-[600] font-semibold whitespace-nowrap ${planBadgeClass()}`}>
                       {r.plan}
                     </span>
                   </td>
-                  <td className="px-4 py-2.5 text-[#6B7280] align-middle hidden md:table-cell text-[14px]">{r.date}</td>
+                  <td className="px-4 py-2.5 text-[#6B7280] align-middle  md:table-cell text-[14px]">{r.date}</td>
                   <td className="px-4 py-2.5 text-gray-700 align-middle">
                     <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[600] font-semibold font-medium whitespace-nowrap ${statusBadgeClass(r.status)}`}>
                       {r.status}
                     </span>
                   </td>
-                  <td className="px-4 py-2.5 text-[#6B7280] align-middle hidden lg:table-cell text-[14px]">{r.expiry}</td>
+                  <td className="px-4 py-2.5 text-[#6B7280] align-middle  lg:table-cell text-[14px]">{r.expiry}</td>
                   <td className="px-4 py-2.5 text-gray-700 align-middle">
                     <ActionMenu
                       actions={[

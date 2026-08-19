@@ -81,9 +81,9 @@ export default function Blogs() {
             <thead className="bg-[#FFFFFF]">
               <tr>
                 <th className="px-5 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280]  border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">Article</th>
-                <th className="pl-4 pr-7 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280]  border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden sm:table-cell">Category</th>
-                <th className="pl-7 pr-8 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden md:table-cell">Author</th>
-                <th className="px-7 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280]  border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden lg:table-cell">Date</th>
+                <th className="pl-4 pr-7 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280]  border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] ">Category</th>
+                <th className="pl-7 pr-8 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]  ">Author</th>
+                <th className="px-7 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280]  border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] ">Date</th>
                 <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280]  border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">Status</th>
                 <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280]  border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">Action</th>
               </tr>
@@ -107,13 +107,13 @@ export default function Blogs() {
                       </div>
                     </div>
                   </td>
-                  <td className="pl-0 pr-7 py-4 align-middle hidden sm:table-cell">
+                  <td className="pl-0 pr-7 py-4 align-middle  sm:table-cell">
                     <span className={`inline-flex items-center px-3 py-0.85 rounded-full text-[13px] font-[600] font-semibold whitespace-nowrap ${categoryBadgeClass()}`}>
                       {b.category}
                     </span>
                   </td>
-                  <td className="pl-6 pr-8 py-4 text-[#6B7280] font-[400] text-[14px] align-middle hidden md:table-cell">{b.author}</td>
-                  <td className="px-4 py-4 text-[#6B7280] text-[14px] align-middle hidden lg:table-cell">{b.date}</td>
+                  <td className="pl-6 pr-8 py-4 text-[#6B7280] font-[400] text-[14px] align-middle md:table-cell">{b.author}</td>
+                  <td className="px-4 py-4 text-[#6B7280] text-[14px] align-middle  lg:table-cell">{b.date}</td>
                   <td className="px-4 py-4 align-middle">
                     <span className={`inline-flex items-center px-2.5 py-0.55 rounded-full text-[13px] font-medium whitespace-nowrap ${statusBadgeClass(b.status)}`}>
                       {b.status}

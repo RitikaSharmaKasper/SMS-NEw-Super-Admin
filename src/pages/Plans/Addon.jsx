@@ -1,7 +1,7 @@
 
 import { addOnsData } from "../../data/Plans";
 import { Link, useNavigate } from 'react-router-dom';
-
+import { useraddOnsData} from "../../data/Plans";
 import { useState, useEffect } from 'react';
 
 
@@ -12,6 +12,7 @@ export default function AddOn() {
  const navigate = useNavigate();
   // merge statically-defined addOnsData with add-ons saved from Create/Edit forms
   const [allAddOns, setAllAddOns] = useState(addOnsData);
+   const [alluserAddOns, setAllUserAddOns] = useState(useraddOnsData);
 
   useEffect(() => {
     try {
@@ -31,6 +32,26 @@ export default function AddOn() {
       setAllAddOns(addOnsData);
      }
    }, []);
+
+ useEffect(() => {
+    try {
+      const customuserAddOns = JSON.parse(localStorage.getItem('customuserAddOns') || '[]');
+
+      const merged = useraddOnsData.map((staticAddOn) => {
+        const override = customuserAddOns.find((ca) => String(ca.id) === String(staticAddOn.id));
+         return override ? { ...staticAddOn, ...override } : staticAddOn;
+      });
+       const brandNew = customuserAddOns.filter(
+         (ca) => !useraddOnsData.some((sa) => String(sa.id) === String(ca.id))
+      );
+
+      setAllUserAddOns([...merged, ...brandNew]);
+     } catch (err) {
+    console.error('Failed to load custom add-ons from localStorage', err);
+      setAllUserAddOns(useraddOnsData);
+     }
+   }, []);
+
 
 
 
@@ -66,6 +87,49 @@ export default function AddOn() {
   </Link>
 </div>
       </div>
+
+
+
+
+ <p className="text-[20px] font-[600] font-semibold text-[#0F1729] mb-0">User</p>
+
+      {/* ── Add-on cards (repeats — equal size per row automatically) ── */}
+<div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-2 gap-4 items-stretch -mt-[9px]">
+  {alluserAddOns.slice(0, 2).map((addon) => (
+    <div
+      key={addon.id}
+      className="flex flex-col items-center text-center w-full rounded-[16px] border border-[#E6E6E6] bg-[#FFFFFF] p-4 gap-2"
+    >
+      <p className="text-[16px] font-[700] font-[bold] font-segoe text-[#1C1C1C]">{addon.name}</p>
+      <p className="text-[16px] font-[600] font-semibold text-[#00B241] font-segoe mt-0">₹{addon.price}/user</p>
+
+      <button 
+        className="-mt-[2px] w-full py-3 text-[14px] font-semibold font-[600] rounded-[8px] border border-[#E5E7EB] bg-[#F6F7F9] text-[#0F1729] cursor-pointer transition-colors"
+        onClick={() => navigate(`/plans/add-ons/edit/${addon.id}?type=user`)}
+      >
+        Edit Plan
+      </button>
+    </div>
+  ))}
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       <p className="text-[20px] font-[600] font-semibold text-[#0F1729] mb-0">Storage</p>
 

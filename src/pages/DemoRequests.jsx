@@ -79,11 +79,11 @@ export default function DemoRequests() {
               <tr>
                 <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">REQ ID</th>
                 <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">Lead Name</th>
-                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden lg:table-cell">Contact</th>
-                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden sm:table-cell">Message</th>
+                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]  lg:table-cell">Contact</th>
+                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]  sm:table-cell">Message</th>
                 {/* <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden md:table-cell">Date</th> */}
                 <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">Status</th>
-                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden lg:table-cell">Received</th>
+                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] lg:table-cell">Received</th>
                 <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">Action</th>
               </tr>
             </thead>
@@ -102,7 +102,7 @@ export default function DemoRequests() {
                       <p className="text-[14px] text-[#6B7280]  max-w-[200px] font-sans mt-0">{r.schoolName}</p>
                     </div>
                   </td>
-                  <td className="px-4 py-2.5 text-gray-700 align-middle hidden lg:table-cell">
+                  <td className="px-4 py-2.5 text-gray-700 align-middle  lg:table-cell">
                  
 
                     <div className="min-w-0">
@@ -117,7 +117,7 @@ export default function DemoRequests() {
   </div>
                     </div>
                   </td>
-      <td className="px-4 py-2.5 text-gray-700 align-middle hidden xl:table-cell">
+      <td className="px-4 py-2.5 text-gray-700 align-middle  xl:table-cell">
   <div className="relative max-w-[250px]">
     <div 
       className="w-full text-[14px] text-[#6B7280] bg-[#FAFBFF] border border-[#E5E7EB] rounded-[6px] p-2 min-h-[20px] max-h-[50px] overflow-y-auto whitespace-pre-wrap break-words scrollbar-thin scrollbar-thumb-[#D1D5DB] scrollbar-track-transparent"
@@ -135,7 +135,7 @@ export default function DemoRequests() {
                       {r.status}
                     </span>
                   </td>
-                  <td className="px-4 py-2.5 text-[#6B7280] align-middle hidden md:table-cell text-[14px]">{r.date}</td>
+                  <td className="px-4 py-2.5 text-[#6B7280] align-middle  md:table-cell text-[14px]">{r.date}</td>
                   <td className="px-4 py-2.5 text-gray-700 align-middle">
                     <ActionMenu
                       actions={[

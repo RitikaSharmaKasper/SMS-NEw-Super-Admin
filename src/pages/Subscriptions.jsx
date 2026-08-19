@@ -77,9 +77,9 @@ export default function Subscriptions() {
                
                 <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]  ">Student</th>
       
-                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden md:table-cell">Teacher</th>
-                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden lg:table-cell">Start Date</th>
-                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden lg:table-cell">End Date</th>
+                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]  md:table-cell">Teacher</th>
+                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]  lg:table-cell">Start Date</th>
+                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]  lg:table-cell">End Date</th>
         
               </tr>
             </thead>
@@ -102,10 +102,10 @@ export default function Subscriptions() {
                       {s.status}
                     </span>
                   </td>
-                           <td className="px-4 py-5 text-[#0F1729] text-[14px] align-middle hidden md:table-cell">{s.student}</td>
-                  <td className="px-4 py-5 text-[#6B7280] text-[14px] align-middle hidden md:table-cell">{s.teacher}</td>
-                  <td className="px-4 py-5 text-[#6B7280] text-[14px] align-middle hidden lg:table-cell">{s.startDate}</td>
-                  <td className="px-4 py-5 text-[#6B7280] text-[14px] align-middle hidden lg:table-cell">{s.endDate}</td>
+                           <td className="px-4 py-5 text-[#0F1729] text-[14px] align-middle  md:table-cell">{s.student}</td>
+                  <td className="px-4 py-5 text-[#6B7280] text-[14px] align-middle  md:table-cell">{s.teacher}</td>
+                  <td className="px-4 py-5 text-[#6B7280] text-[14px] align-middle  lg:table-cell">{s.startDate}</td>
+                  <td className="px-4 py-5 text-[#6B7280] text-[14px] align-middle  lg:table-cell">{s.endDate}</td>
               
                   {/* <td className="px-4 py-5 align-middle">
                     <ActionMenu

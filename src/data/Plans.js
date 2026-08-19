@@ -81,3 +81,11 @@ export const addOnsData = [
                              { id: 18, size: '50 GB', price: 400 },
                                     { id: 19, size: '50 GB', price: 400 },
 ];
+
+
+
+export const useraddOnsData = [
+  { id: 1, name: 'Student', price: 400 },
+  { id: 2, name: 'Staff', price: 400 },
+ 
+];

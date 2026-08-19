@@ -86,13 +86,13 @@ export default function Schools() {
             <thead className="bg-[#FFFFFF]">
               <tr>
                 <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">School Name</th>
-                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden md:table-cell">School ID</th>
-                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden lg:table-cell">Admin</th>
-                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden sm:table-cell">Plan</th>
-                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden xl:table-cell">Students</th>
-                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden xl:table-cell">Teachers</th>
+                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]  md:table-cell">School ID</th>
+                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]  lg:table-cell">Admin</th>
+                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]  sm:table-cell">Plan</th>
+                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]  xl:table-cell">Students</th>
+                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]  xl:table-cell">Teachers</th>
                 <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">Status</th>
-                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden lg:table-cell">Expiry</th>
+                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] lg:table-cell">Expiry</th>
                 <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">Action</th>
               </tr>
             </thead>
@@ -110,26 +110,26 @@ export default function Schools() {
                       </div>
                     </div>
                   </td>
-                  <td className="px-4 py-2.5 align-middle hidden md:table-cell text-[14px] font-[400] font-mono text-[#6B7280]">{s.schoolId}</td>
-                  <td className="px-4 py-2.5 text-gray-700 align-middle hidden lg:table-cell">
+                  <td className="px-4 py-2.5 align-middle  md:table-cell text-[14px] font-[400] font-mono text-[#6B7280]">{s.schoolId}</td>
+                  <td className="px-4 py-2.5 text-gray-700 align-middle  lg:table-cell">
                     <div className="min-w-0">
                       <p className="font-semibold text-[#0F1729] text-[14px] truncate max-w-[140px]">{s.admin}</p>
                       <p className="text-[14px] text-[#6B7280] truncate max-w-[140px]">{s.adminEmail}</p>
                     </div>
                   </td>
-                  <td className="px-4 py-2.5 text-gray-700 align-middle hidden sm:table-cell">
+                  <td className="px-4 py-2.5 text-gray-700 align-middle  sm:table-cell">
                     <span className={`inline-flex items-center px-3 py-0.5 rounded-full text-[13px] font-[600] font-semibold whitespace-nowrap ${planBadgeClass(s.plan)}`}>
                       {s.plan}
                     </span>
                   </td>
-                  <td className="px-4 py-2.5 text-[#0F1729] font-[400] align-middle hidden xl:table-cell text-[14px]">{s.students?.toLocaleString()}</td>
-                  <td className="px-4 py-2.5 text-[#0F1729] font-[400] align-middle hidden xl:table-cell text-[14px]">{s.teachers}</td>
+                  <td className="px-4 py-2.5 text-[#0F1729] font-[400] align-middle xl:table-cell text-[14px]">{s.students?.toLocaleString()}</td>
+                  <td className="px-4 py-2.5 text-[#0F1729] font-[400] align-middle  xl:table-cell text-[14px]">{s.teachers}</td>
                   <td className="px-4 py-2.5 text-gray-700 align-middle">
                     <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium whitespace-nowrap ${statusBadgeClass(s.status)}`}>
                       {s.status}
                     </span>
                   </td>
-                  <td className="px-4 py-2.5 text-[#6B7280] align-middle hidden lg:table-cell text-[14px]">{s.expiry}</td>
+                  <td className="px-4 py-2.5 text-[#6B7280] align-middle  lg:table-cell text-[14px]">{s.expiry}</td>
                   <td className="px-4 py-2.5 text-gray-700 align-middle">
                     <div className="flex items-center gap-1">
                       <ActionMenu
@@ -150,17 +150,17 @@ export default function Schools() {
           </table>
         </div>
       </div>
-<button
-  onClick={() => {/* your add school handler */}}
+{/* <button
+  onClick={() => {}}
 className="fixed bottom-17 right-6 w-11 h-11 flex items-center justify-center bg-[#0DA2E7] text-white rounded-full border-none cursor-pointer  transition-colors  z-50"
   title="Add School"
 >
   {/* <PlusIcon className="w-6 h-6" /> */}
-
+{/* 
   <img src={PLUS} alt="" className="w-8 h-8" />
-</button>
-      {/* Pagination outside table card in blank space */}
-      <div className="flex-shrink-0 px-1 mt-6">
+</button> } */}
+    
+      <div className="flex-shrink-0 px-1 mt-2">
         <Pagination
           page={page}
           totalPages={totalPages}

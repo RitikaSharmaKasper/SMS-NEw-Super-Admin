@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import section from "../../assets/images/section.svg";
 import sectiontitle from "../../assets/images/title.svg";
+import { Trash2 } from 'lucide-react';
 import uploadIcon from "../../assets/images/upload.svg";
 const inputClass =
   "w-full px-3.5 py-2.5 text-[16px] border border-[#E6E6E6] rounded-[12px]  font-segoe outline-none bg-[#FFFFFF] text-[#696969] placeholder-[#696969] transition-colors";
@@ -72,7 +73,7 @@ export default function CreateBlog() {
   const addSection = () => setSections((prev) => [...prev, newSection()]);
 
   const removeSection = (id) => {
-    setSections((prev) => (prev.length > 1 ? prev.filter((s) => s.id !== id) : prev));
+    setSections((prev) => prev.filter((s) => s.id !== id));
   };
 
   const updateBullet = (sectionId, idx, value) => {
@@ -222,21 +223,18 @@ const [coverImageName, setCoverImageName] = useState('');
 
               <div key={s.id} className="border border-[#E5E7EB] rounded-[12px] bg-[#FBFCFD] overflow-hidden">
   {/* Separated Header Bar */}
-  <div className="flex items-center justify-between px-4 py-3 bg-[#FBFCFD] border-b border-[#E5E7EB]">
+  <div className="flex items-center justify-between px-4 py-2 bg-[#FBFCFD] border-b border-[#E5E7EB]">
     <span className="flex items-center gap-4 text-[14px] font-[600] text-[#696969] font-semibold">
      <img src={section} alt="" /> Section {idx + 1}
     </span>
-    {sections.length > 1 && (
-      <button
-        type="button"
-        onClick={() => removeSection(s.id)}
-        className="text-[#9CA3AF] 
-         bg-transparent border-none cursor-pointer p-1"
-        title="Remove section"
-      >
-        <TrashIcon />
-      </button>
-    )}
+    <button
+      type="button"
+      onClick={() => removeSection(s.id)}
+      className="text-[#9CA3AF] hover:text-[#EF4444] bg-transparent border-none cursor-pointer p-1 transition-colors"
+      title="Remove section"
+    >
+    <Trash2 className="w-4 h-4" />
+    </button>
   </div>
 
   {/* Form Fields Section */}

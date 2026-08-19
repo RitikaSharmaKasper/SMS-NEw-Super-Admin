@@ -80,10 +80,10 @@ export default function SupportTickets() {
               <tr>
                 <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">Ticket ID</th>
                 <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">School</th>
-                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden md:table-cell">Subject</th>
+                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]  md:table-cell">Subject</th>
                 <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">Priority</th>
                 <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">Status</th>
-                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA] hidden lg:table-cell">Date</th>
+                <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]  lg:table-cell">Date</th>
                 <th className="px-4 py-2 text-left text-[14px] font-[600] font-semibold text-[#6B7280] tracking-wide border-b border-[#F2F3F5] whitespace-nowrap sticky top-0 z-[1] bg-[#F9F9FA]">Action</th>
               </tr>
             </thead>
@@ -96,7 +96,7 @@ export default function SupportTickets() {
                 <tr key={t.id} className="border-b border-[#F2F3F5] last:border-b-0  transition-colors">
                   <td className="px-4 py-4 text-[14px] font-[400] font-mono text-[#6B7280] align-middle">{t.ticketId}</td>
                   <td className="px-4 py-4 font-semibold text-[#0F1729] text-[14px] align-middle">{t.school}</td>
-                  <td className="px-4 py-4 text-[#6B7280] align-middle hidden md:table-cell text-[14px] max-w-[220px]">
+                  <td className="px-4 py-4 text-[#6B7280] align-middle md:table-cell text-[14px] max-w-[220px]">
                     <span className="truncate block">{t.subject}</span>
                   </td>
                   <td className="px-4 py-4 align-middle">
@@ -105,7 +105,7 @@ export default function SupportTickets() {
                   <td className="px-4 py-4 align-middle">
                     <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium whitespace-nowrap ${statusBadgeClass(t.status)}`}>{t.status}</span>
                   </td>
-                  <td className="px-4 py-4 text-[#6B7280] align-middle hidden lg:table-cell text-[14px]">{t.date}</td>
+                  <td className="px-4 py-4 text-[#6B7280] align-middle  lg:table-cell text-[14px]">{t.date}</td>
                   <td className="px-4 py-4 align-middle">
                     <ActionMenu
                       actions={[

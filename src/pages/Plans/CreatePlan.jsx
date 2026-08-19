@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import discount from "../../assets/images/discount.svg";
 const inputClass =
   "w-full px-3.5 py-3 text-[16px] border border-[#E6E6E6] rounded-[12px] outline-none bg-[#FFFFFF] text-[#696969] placeholder-[#696969] transition-colors";
 const labelClass = "block text-[14px] font-[600] text-[#374151] mb-1 font-segoe font-semibold";
@@ -84,7 +84,35 @@ export default function CreatePlan() {
 
   const update = (key, value) => {
     const finalValue = numericFields.includes(key) ? sanitizeNumeric(value) : value;
-    setForm((f) => ({ ...f, [key]: finalValue }));
+
+    setForm((f) => {
+      const next = { ...f, [key]: finalValue };
+
+      const m = parseFloat(next.monthlyPrice);
+      const y = parseFloat(next.yearlyPrice);
+
+      if (!isNaN(m) && m > 0 && !isNaN(y) && y > 0) {
+        const fullYear = m * 12;
+        if (y < fullYear) {
+          const discountAmt = fullYear - y;
+          const pct = Math.round((discountAmt / fullYear) * 100);
+          next.yearlyDiscountDisplay = `Save ${pct}%`;
+          next.hasDiscount = true;
+          next.yearlyDiscount = String(discountAmt);
+        } else {
+          next.yearlyDiscountDisplay = 'No discount';
+          next.hasDiscount = false;
+          next.yearlyDiscount = '0';
+        }
+      } else {
+        next.yearlyDiscountDisplay = 'No discount';
+        next.hasDiscount = false;
+        next.yearlyDiscount = '';
+      }
+
+      return next;
+    });
+
     // clear this field's error as soon as the user edits it
     setErrors((prev) => {
       if (!prev[key]) return prev;
@@ -328,7 +356,29 @@ const toggleUnlimited = (key) => {
               </div>
               <div>
                 <label className={labelClass}>Yearly Discount</label>
-                <input type="text" placeholder="₹ 0" className={inputClass} value={form.yearlyDiscount} onChange={(e) => update('yearlyDiscount', e.target.value)} />
+                <div className="relative flex items-center">
+                  <input
+                    type="text"
+                    placeholder=""
+                    className={`${inputClass} cursor-default`}
+                    value=""
+                    readOnly
+                  />
+                  <div className="absolute left-3.5 flex items-center gap-1.5 pointer-events-none">
+                    {form.hasDiscount ? (
+                      <>
+                     <img src={discount} alt="" />
+                        <span className="text-[16px] font-[400] text-[#139F47]">
+                          {form.yearlyDiscountDisplay}
+                        </span>
+                      </>
+                    ) : (
+                      <span className="text-[14px] font-[400] text-[#9CA3AF]">
+                        No discount
+                      </span>
+                    )}
+                  </div>
+                </div>
               </div>
               <div>
                 <label className={labelClass}>Billing Options</label>
@@ -493,12 +543,12 @@ const toggleUnlimited = (key) => {
     type="button"
     onClick={() => toggleUnlimited(key)}
     title="Unlimited"
-    className={`relative flex-shrink-0 w-9 h-[17.5px] rounded-full transition-colors border-none cursor-pointer ${
+    className={`relative flex-shrink-0 w-8.5 h-[17px] rounded-full transition-colors border-none cursor-pointer ${
       unlimited[key] ? 'bg-[#0DA2E7]' : 'bg-[#D1D5DB]'
     }`}
   >
     <span
-      className="absolute top-0.5 left-0.5 w-[14px] h-[14px] rounded-full bg-white transition-transform"
+      className="absolute top-0.5 left-0.5 w-[13px] h-[13px] rounded-full bg-white transition-transform"
       style={{ transform: unlimited[key] ? 'translateX(18px)' : 'translateX(0)' }}
     />
   </button>
@@ -608,13 +658,13 @@ function ToggleRow({ title, subtitle, checked, onChange, inline, className = '' 
       <button
         type="button"
         onClick={() => onChange(!checked)}
-        className={`relative w-9 h-1 rounded-full transition-colors flex-shrink-0 border-none cursor-pointer ${
+        className={`relative w-8 h-1 rounded-full transition-colors flex-shrink-0 border-none cursor-pointer ${
           checked ? 'bg-[#0DA2E7]' : 'bg-[#D1D5DB]'
         }`}
-        style={{ width: '36px', height: '17px' }}
+        style={{ width: '34px', height: '17px' }}
       >
         <span
-          className="absolute top-0.25 left-0.5 w-[14px] h-[14px] rounded-full bg-white transition-transform"
+          className="absolute top-0.5 left-0.5 w-[12px] h-[12px] rounded-full bg-white transition-transform"
           style={{ transform: checked ? 'translateX(18px)' : 'translateX(0)' }}
         />
       </button>

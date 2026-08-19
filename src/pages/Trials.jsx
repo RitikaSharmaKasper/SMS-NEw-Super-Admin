@@ -96,7 +96,7 @@ export default function Trials() {
               ) : paginated.map((p) => (
                 <tr key={p.id} className="border-b border-[#F2F3F5] last:border-b-0  transition-colors">
 
-<td className="px-5 py-2.5 text-gray-700 align-middle hidden lg:table-cell">
+<td className="px-5 py-2.5 text-gray-700 align-middle lg:table-cell">
                     <div className="min-w-0">
                       <p className="font-semibold text-[#0F1729] text-[14px] truncate max-w-[200px]">{p.school}</p>
                       <p className="text-[14px] text-[#6B7280] truncate max-w-[200px]">{p.email}</p>

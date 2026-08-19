@@ -3,8 +3,9 @@ import { plansData } from "../../data/Plans";
 import PLUS from "../../assets/images/PLUS.svg";
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import {  Trash2 } from 'lucide-react';
 export default function Plans() {
-     const navigate = useNavigate();
+  const navigate = useNavigate();
 
   // merge statically-defined plansData with plans saved from the Create Plan form
   const [allPlans, setAllPlans] = useState(plansData);
@@ -12,12 +13,61 @@ export default function Plans() {
   useEffect(() => {
     try {
       const customPlans = JSON.parse(localStorage.getItem('customPlans') || '[]');
-      setAllPlans([...plansData, ...customPlans]);
+      const deletedIds = new Set(JSON.parse(localStorage.getItem('deletedStaticPlanIds') || '[]'));
+      const customMap = new Map(customPlans.map((p) => [String(p.id), p]));
+      const staticIds = new Set(plansData.map((p) => String(p.id)));
+
+      // Walk static plans in their original order:
+      //   - skip deleted ones
+      //   - replace with custom override in-place (keeps position, keeps Popular badge position)
+      const merged = plansData
+        .filter((p) => !deletedIds.has(String(p.id)))
+        .map((p) => (customMap.has(String(p.id)) ? customMap.get(String(p.id)) : p));
+
+      // Append truly new plans (not overrides of static plans) at the end
+      const newCustom = customPlans.filter((p) => !staticIds.has(String(p.id)));
+
+      setAllPlans([...merged, ...newCustom]);
     } catch (err) {
       console.error('Failed to load custom plans from localStorage', err);
       setAllPlans(plansData);
     }
   }, []);
+
+  const handleDeletePlan = (planId) => {
+    const idStr = String(planId);
+
+    // Remove from UI immediately
+    setAllPlans((prev) => prev.filter((p) => String(p.id) !== idStr));
+
+    try {
+      const customPlans = JSON.parse(localStorage.getItem('customPlans') || '[]');
+      const isCustom = customPlans.some((p) => String(p.id) === idStr);
+
+      if (isCustom) {
+        // Remove from customPlans
+        const updated = customPlans.filter((p) => String(p.id) !== idStr);
+        localStorage.setItem('customPlans', JSON.stringify(updated));
+        // If this was originally a static plan (saved as override), also mark as deleted
+        // so the original static version doesn't reappear on next load
+        if (plansData.some((p) => String(p.id) === idStr)) {
+          const deleted = JSON.parse(localStorage.getItem('deletedStaticPlanIds') || '[]');
+          if (!deleted.includes(idStr)) {
+            localStorage.setItem('deletedStaticPlanIds', JSON.stringify([...deleted, idStr]));
+          }
+        }
+      } else {
+        // Pure static plan: track id so it doesn't reappear on reload
+        const deleted = JSON.parse(localStorage.getItem('deletedStaticPlanIds') || '[]');
+        if (!deleted.includes(idStr)) {
+          localStorage.setItem('deletedStaticPlanIds', JSON.stringify([...deleted, idStr]));
+        }
+      }
+    } catch (err) {
+      console.error('Failed to delete plan', err);
+    }
+  };
+
 
   return (
     <div className="flex flex-col h-full min-h-0 overflow-y-auto gap-4 pt-6 pl-6 pr-0 pb-5">
@@ -101,16 +151,27 @@ className="px-7 py-1 text-[15px] font-medium font-[500]  rounded-[8px] bg-[#F5F7
               ))}
             </ul>
 
-            <button
-              onClick={() => navigate(`/plans/edit/${plan.id}`)}
-              className={`mt-auto w-full py-2 text-[14px] font-[600] font-semibold  rounded-[8px] border cursor-pointer transition-colors ${
-                plan.popular
-                  ? 'bg-[#0DA2E7] border-[#0DA2E7] text-white hover:bg-[#0b8fcb]'
-                  : 'bg-white border-[#DDDDDD] text-[#0F1729] hover:bg-gray-50'
-              }`}
-            >
-              Edit Plan
-            </button>
+            {/* Bottom action buttons: Edit Plan (wider) & Delete Plan side-by-side */}
+            <div className="mt-auto flex items-center gap-2 w-full">
+              <button
+                onClick={() => navigate(`/plans/edit/${plan.id}`)}
+                className={`flex-1 py-2 text-[14px] font-[600] font-semibold rounded-[8px] border cursor-pointer transition-colors ${
+                  plan.popular
+                    ? 'bg-[#0DA2E7] border-[#0DA2E7] text-white hover:bg-[#0b8fcb]'
+                    : 'bg-white border-[#DDDDDD] text-[#0F1729] hover:bg-gray-50'
+                }`}
+              >
+                Edit Plan
+              </button>
+              <button
+                type="button"
+                onClick={() => handleDeletePlan(plan.id)}
+                title="Delete Plan"
+                className="px-3 py-2 text-[14px] font-[600] font-semibold rounded-[8px] border border-[#FECACA] bg-[#FEF2F2] text-[#EF4444] hover:bg-[#EF4444] hover:text-white cursor-pointer transition-colors whitespace-nowrap"
+              >
+                Delete Plan
+              </button>
+            </div>
           </div>
         ))}
       </div>
@@ -132,6 +193,15 @@ function CheckIcon() {
   return (
     <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-3.5 h-3.5 text-[#21C45D] flex-shrink-0">
       <path d="M3 8.5l3 3 7-7" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+// Same XIcon as used in CreatePlan / EditPlan – taken from your existing code
+function XIcon() {
+  return (
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-3.5 h-3.5">
+      <path d="M4 4l8 8M12 4l-8 8" strokeLinecap="round" />
     </svg>
   );
 }

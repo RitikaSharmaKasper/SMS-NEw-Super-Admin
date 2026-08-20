@@ -374,10 +374,10 @@ export default function CreateAnnouncements() {
 
 
 <div className="space-y-3">
-  <div className="flex items-center justify-between gap-2 border border-[#E6E6E6] rounded-[10px] p-3.5">
-    <div className="flex items-center gap-2">
+  <div className="flex items-center justify-between gap-2 border border-[#E6E6E6] rounded-[10px] p-3.5 mt-3">
+    <div className="flex items-center gap-2 ">
       <Pin className="w-4 h-4 text-[#696969] flex-shrink-0" />
-      <div className="flex flex-col">
+      <div className="flex flex-col ">
         <span className="text-[14px] font-[600] text-[#1C1C1C]">Pin to top</span>
         <span className="text-[12px] text-[#6B7280]">Show above other banners</span>
       </div>
@@ -440,12 +440,12 @@ function Switch({ checked, onCheckedChange }) {
       role="switch"
       aria-checked={checked}
       onClick={() => onCheckedChange(!checked)}
-      className={`relative inline-flex h-6 w-11 flex-shrink-0 items-center rounded-full transition-colors duration-200 ${
-        checked ? 'bg-[#0DA2E7]' : 'bg-[#D1D5DB]'
+      className={`relative inline-flex h-5 w-10 flex-shrink-0 items-center rounded-full transition-colors duration-200 ${
+        checked ? 'bg-[#155A7A]' : 'bg-[#D1D5DB]'
       }`}
     >
       <span
-        className={`inline-block h-4.5 w-4.5 h-[18px] w-[18px] transform rounded-full bg-white shadow transition-transform duration-200 ${
+        className={`inline-block h-4.5 w-4.5 h-[16px] w-[16px] transform rounded-full bg-white shadow transition-transform duration-200 ${
           checked ? 'translate-x-[22px]' : 'translate-x-[3px]'
         }`}
       />

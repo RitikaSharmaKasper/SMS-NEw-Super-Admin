@@ -13,7 +13,7 @@ import Subscriptions from "../../assets/images/Subscriptions.svg";
 import payments from "../../assets/images/payments.svg";
 import  modules  from  "../../assets/images/modules.svg";
 import users from "../../assets/images/users.svg";
-import notification from "../../assets/images/notification.svg";
+
 import profile from "../../assets/images/profile.svg";
 import supporttickets from "../../assets/images/supporttickets.svg";
 import reportsandanalytics from "../../assets/images/reportsandanalytics.svg";
@@ -68,7 +68,7 @@ const NAV_SECTIONS = [
       // { label: 'Notifications', path: '/notifications', image: notification },
           
       { label: 'Users',         path: '/users',         image: users           },
-      { label: 'Notifications', path: '/notifications', image: notification },
+
        { label: 'Email Logs',       path: '/emaillogs',      image: emaillogs        },
     ],
   },

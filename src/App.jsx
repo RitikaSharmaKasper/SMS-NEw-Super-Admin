@@ -26,7 +26,7 @@ import DemoRequests from './pages/DemoRequests';
 import Coupon from './pages/Coupon';
 import Orders from './pages/Orders';
 import Trials from './pages/Trials';
-import Announcements from './pages/Announcements';
+import Announcements from './pages/Announcements/Announcements';
 import EmailLogs from './pages/EmailLogs';
 import FAQ from './pages/FAQ';
 import Blogs from "./pages/Blogs/Blogs";
@@ -34,6 +34,8 @@ import CreateBlog from './pages/Blogs/CreateBlog';
 import Testimonials from './pages/Testimonial/Testimonials';
 import CreateTestimonial from './pages/Testimonial/CreateTestimonial';
 import AboutUs from './pages/AboutUs';
+import CreateAnnouncement from './pages/Announcements/CreateAnnouncements';
+import CreateAnnouncements from './pages/Announcements/CreateAnnouncements';
 
 
 export default function App() {
@@ -75,6 +77,7 @@ export default function App() {
                         <Route path="/testimonials" element={<Testimonials />} />
                         <Route path="/testimonials/create" element={<CreateTestimonial />} />
                         <Route path="/aboutus" element={<AboutUs />} />
+                        <Route path="/create-announcement" element={<CreateAnnouncements/>}/>
           </Routes>
       </div>
     </div>

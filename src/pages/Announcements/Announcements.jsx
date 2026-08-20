@@ -1,21 +1,23 @@
 import { useState } from 'react';
-import { announcements } from "../data/announcements";
-
-import FilterDropdown from '../components/layout/FilterDropdown';
-import ActionMenu from '../components/layout/ActionMenu';
-import PLUS from '../assets/images/PLUS.svg';
-import sparkles from "../assets/images/sparkles.svg";
-import password from "../assets/images/Password.svg";
-import userrole from "../assets/images/UserRole.svg";
-import datafeature1 from "../assets/images/DataEncryptionFeature.svg";
-import datafeature2 from "../assets/images/DataEncryptionfeature2.svg";
-import tenants from "../assets/images/alltenants.svg";
-import Setupnow from "../assets/images/Setupnow.svg";
-import app from "../assets/images/app.svg";
+import { announcements } from "../../data/announcements";
+import { useNavigate } from 'react-router-dom';
+import FilterDropdown from '../../components/layout/FilterDropdown';
+import ActionMenu from '../../components/layout/ActionMenu';
+import PLUS from '../../assets/images/PLUS.svg';
+import sparkles from "../../assets/images/sparkles.svg";
+import password from "../../assets/images/Password.svg";
+import userrole from "../../assets/images/UserRole.svg";
+import datafeature1 from "../../assets/images/DataEncryptionFeature.svg";
+import datafeature2 from "../../assets/images/DataEncryptionfeature2.svg";
+import tenants from "../../assets/images/alltenants.svg";
+import Setupnow from "../../assets/images/Setupnow.svg";
+import app from "../../assets/images/app.svg";
 const STATUS_OPTIONS = ['All Status', 'Active', 'Scheduled', 'Expired'];
 const TYPE_OPTIONS = ['All Types', 'Release', 'Warning', 'Success', 'Info', 'Maintenance'];
 
 export default function Announcements() {
+  
+  const navigate = useNavigate(); // <--- 2. ADD THIS HOOK
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState('All Status');
   const [typeFilter, setTypeFilter] = useState('All Types');
@@ -162,7 +164,7 @@ export default function Announcements() {
       </div>
 
       <button
-        onClick={() => {/* your add announcement handler */}}
+        onClick={() => navigate('/create-announcement')} 
         className="fixed bottom-13 right-10 w-11 h-11 flex items-center justify-center bg-[#0DA2E7] text-white rounded-full border-none cursor-pointer transition-colors z-50"
         title="New Announcement"
       >

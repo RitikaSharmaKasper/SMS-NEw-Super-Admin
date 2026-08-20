@@ -27,14 +27,7 @@ export default function AboutUs() {
     ctaPath: '/book-demo',
     image: '',
     attachments: [
-      'https://picsum.photos/seed/abt1/200/140',
-      'https://picsum.photos/seed/abt2/200/140',
-      'https://picsum.photos/seed/abt3/200/140',
-      'https://picsum.photos/seed/abt4/200/140',
-      'https://picsum.photos/seed/abt5/200/140',
-      'https://picsum.photos/seed/abt6/200/140',
-      'https://picsum.photos/seed/abt7/200/140',
-      'https://picsum.photos/seed/abt8/200/140',
+     
     ],
   });
 
@@ -112,7 +105,7 @@ export default function AboutUs() {
       </div>
 
       {/* ── Separate Cards Container with gap-4 ── */}
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-3">
         <HeroSection
           hero={hero}
           setHero={setHero}

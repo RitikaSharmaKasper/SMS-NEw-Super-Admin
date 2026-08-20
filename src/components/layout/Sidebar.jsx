@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 
 import auditlogs from "../../assets/images/auditlogs.svg";
 
-import dashboard from "../../assets/images/Dashboard.svg";
+import dashboard from "../../assets/images/dashboard.svg";
 
 import registrationrequest from "../../assets/images/registrationrequest.svg";
 import { FaListAlt } from 'react-icons/fa';
@@ -22,13 +22,13 @@ import school from "../../assets/images/schools.svg";
 import munclogo  from "../../assets/images/munclogo.svg";
 import order from "../../assets/images/Order.svg";
 import coupon from "../../assets/images/coupon.svg";
-import emaillogs from "../../assets/images/Email_Logs.svg";
+import emaillogs from "../../assets/images/Email_logs.svg";
 import Export_Component from "../../assets/images/Export_Components.svg";
 import trial from "../../assets/images/trials.svg";
 import faq from "../../assets/images/FAQ.svg";
 import testimonials from "../../assets/images/Testimonials.svg";
 import blogs from "../../assets/images/Blogs.svg";
-import aboutus from "../../assets/images/Aboutus.svg";
+import aboutus from "../../assets/images/AboutUs.svg";
 
 
 import { MdSupportAgent, MdBarChart, MdSettings, MdPerson, MdMenu, MdClose, MdChevronLeft, MdChevronRight } from 'react-icons/md';
